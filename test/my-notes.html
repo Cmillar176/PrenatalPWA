@@ -7,41 +7,36 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-
     <title>my-notes</title>
-
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../bower_components/web-component-tester/browser.js"></script>
-
     <!-- Import the element to test -->
-    <link rel="import" href="../src/my-notes.html">
-  </head>
-  <body>
+    <link rel="import" href="../src/my-notes.html"> </head>
+
+<body>
     <test-fixture id="basic">
-      <template>
-        <my-notes></my-notes>
-      </template>
+        <template>
+            <my-notes></my-notes>
+        </template>
     </test-fixture>
-
     <script>
-      suite('my-notes tests', function() {
-        var home;
-
-        setup(function() {
-          home = fixture('basic');
+        suite('my-notes tests', function () {
+            var home;
+            setup(function () {
+                home = fixture('basic');
+            });
+            test('Number in circle should be 1', function () {
+                var circle = Polymer.dom(home.root).querySelector('.circle');
+                assert.equal(circle.textContent, '1');
+            })
         });
-
-        test('Number in circle should be 1', function() {
-          var circle = Polymer.dom(home.root).querySelector('.circle');
-          assert.equal(circle.textContent, '1');
-        })
-      });
     </script>
-  </body>
+</body>
+
 </html>
