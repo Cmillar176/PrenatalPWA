@@ -4,7 +4,7 @@
   "fragments": [
     "src/my-notes.html",
     "src/my-appointments.html",
-    "src/my-view3.html",
+    "src/my-details.html",
     "src/my-view404.html"
   ],
   "sourceGlobs": [

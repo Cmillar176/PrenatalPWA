@@ -7,4 +7,15 @@
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
-console.info('Service worker disabled for development, will be generated at build time.');
+//console.info('Service worker disabled for development, will be generated at build time.');
+//Caching app-shell on install
+var cacheName = 'PrenatalPWA';
+//var filesToCache = [...];
+                    
+self.addEventListener('install'function (e) {
+    e.waitUntil(
+        caches.open(cacheName).then(function (cache) {
+        return cache.addAll(filesToCache);
+        })
+    );
+});
