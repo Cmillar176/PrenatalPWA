@@ -1,3 +1,4 @@
+/*jslint latedef:false*/
 /**
  * @license
  * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
@@ -7,15 +8,46 @@
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
-//console.info('Service worker disabled for development, will be generated at build time.');
 //Caching app-shell on install
+//Offline first approach
 var cacheName = 'PrenatalPWA';
-//var filesToCache = [...];
-                    
-self.addEventListener('install'function (e) {
-    e.waitUntil(
-        caches.open(cacheName).then(function (cache) {
+var dataCacheName = 'PrenatalPWA';
+var filesToCache = [
+    '/src/my-app.html'
+    , '/Scripts/app.js'
+    , '/index.html'
+    , '/src/my-icons.html'
+    , '/src/my-notes.html'
+    , '/src/my-appointments.html'
+    , '/src/my-details.html'
+    , '/src/shared-styles.html'
+    , '/src/shared-styles.html'
+];
+self.addEventListener('install', function (e) {
+    console.log('[ServiceWorker] Install');
+    e.waitUntil(caches.open(cacheName).then(function (cache) {
+        console.log('[ServiceWorker] Caching app shell');
         return cache.addAll(filesToCache);
-        })
-    );
+    }));
+});
+
+//Ensures SW updates cache when app shell files change
+self.addEventListener('activate', function (e) {
+    console.log('[ServiceWorker] Activate');
+    e.waitUntil(caches.keys().then(function (keyList) {
+        return Promise.all(keyList.map(function (key) {
+            if (key !== cacheName) {
+                console.log('[ServiceWorker] Removing old cache', key);
+                return caches.delete(key);
+            }
+        }));
+    }));
+    return self.clients.claim();
+});
+self.addEventListener('fetch', function (e) {
+    console.log('[ServiceWorker] Fetch', e.request.url);
+    var dataUrl = 'https://localhost:8080/my-notes';
+    caches.match(e.request).then(function(cachedResponse) {
+      return cachedResponse || fetch(e.request);
+    })
 });

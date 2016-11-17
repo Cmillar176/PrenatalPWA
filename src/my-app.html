@@ -19,13 +19,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<!--
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+-->
 <link rel="import" href="my-icons.html">
 <dom-module id="my-app">
     <template>
         <style>
             :host {
-                --app-primary-color: #7E57C2;
+                --app-primary-color: #fff;
                 display: block;
             }
             
@@ -70,6 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
                         <div main-title>Prenatal Notes</div>
                         <iron-icon icon="icons:search"></iron-icon>
+                        <iron-icon class="Logo" icon="icons:search"></iron-icon>
                     </app-toolbar>
                 </app-header>
                 <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
