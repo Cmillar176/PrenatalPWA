@@ -13,15 +13,14 @@
 var cacheName = 'PrenatalPWA';
 var dataCacheName = 'PrenatalPWA';
 var filesToCache = [
-    '/src/my-app.html'
-    , '/Scripts/app.js'
-    , '/index.html'
-    , '/src/my-icons.html'
-    , '/src/my-notes.html'
-    , '/src/my-appointments.html'
-    , '/src/my-details.html'
-    , '/src/shared-styles.html'
-    , '/src/shared-styles.html'
+    '/src/my-app.html',
+    '/Scripts/app.js',
+    '/index.html',
+    '/src/my-icons.html',
+    '/src/my-notes.html',
+    '/src/my-appointments.html',
+    '/src/my-details.html'
+    //'/shared-styles.css'
 ];
 self.addEventListener('install', function (e) {
     console.log('[ServiceWorker] Install');
