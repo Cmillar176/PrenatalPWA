@@ -19,7 +19,8 @@ var filesToCache = [
     '/src/my-icons.html',
     '/src/my-notes.html',
     '/src/my-appointments.html',
-    '/src/my-details.html'
+    '/src/my-details.html',
+    '/src/splash-page.html'
     //'/shared-styles.css'
 ];
 self.addEventListener('install', function (e) {
