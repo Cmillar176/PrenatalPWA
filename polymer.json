@@ -5,7 +5,12 @@
     "src/my-notes.html",
     "src/my-appointments.html",
     "src/my-details.html",
-    "src/my-view404.html"
+    "src/splash-page.html",
+    "src/my-view404.html",
+    "src/splash-page.html",
+    "src/app-shell.html"
+      
+      
   ],
   "sourceGlobs": [
    "src/**/*",

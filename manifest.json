@@ -1,7 +1,7 @@
 {
   "name": "Prenatal Notes",
   "short_name": "Prenatal Notes",
-  "start_url": "/?homescreen=1",
+  "start_url": "./?utm_source=web_app_manifest",
   "display": "standalone",
   "theme_color": "#7E57C2",
   "background_color": "#7E57C2",

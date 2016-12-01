@@ -20,7 +20,8 @@ var filesToCache = [
     '/src/my-notes.html',
     '/src/my-appointments.html',
     '/src/my-details.html',
-    '/src/splash-page.html'
+    '/src/splash-page.html',
+    '/src/app-shell.html'
     //'/shared-styles.css'
 ];
 self.addEventListener('install', function (e) {
