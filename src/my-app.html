@@ -19,10 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<!--
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
--->
+<link rel="import" href="/bower_components/polymerfire/polymerfire.html">
 <link rel="import" href="my-icons.html">
 <link rel="manifest" href="/manifest.json">
 <dom-module id="my-app">
@@ -36,12 +33,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             app-header {
                 color: #fff;
                 background-color: var(--app-primary-color);
+                    
+                    
             }
             
             app-header paper-icon-button {
                 --paper-icon-button-ink-color: white;
             }
             
+            
+            app-header > app-toolbar > div {
+                text-align: center;
+                font-size: 24px;
+            }
+            
+            app-header > app-toolbar > div > img {
+                padding-left: 20px;
+            }
+                
             .drawer-list {
                 margin: 0 20px;
             }
@@ -77,9 +86,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <app-header condenses reveals effects="waterfall">
                     <app-toolbar signed-in="[[signedIn]]" on-sign-out="signOut">
                         <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-                        <div main-title>Prenatal Notes</div>
-                        <iron-icon icon="icons:search"></iron-icon>
-                        <iron-icon class="Logo" icon="icons:search"></iron-icon>
+                        <div main-title>Prenatal Notes 
+                        <img src="/images/icon.png" style="width:30px;height:30px;"> </div>
+                        
+                        <iron-icon class="Logo" icon="search"></iron-icon>
+                        <iron-icon icon="icons:account-circle"></iron-icon>
                     </app-toolbar>
                 </app-header>
                 <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
@@ -93,15 +104,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
     <script>
         // Using a popup.
-        var provider = new firebase.auth.GoogleAuthProvider();
-        provider.addScope('profile');
-        provider.addScope('email');
-        firebase.auth().signInWithPopup(provider).then(function (result) {
-            // This gives you a Google Access Token.
-            var token = result.credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-        });
+//        var provider = new firebase.auth.GoogleAuthProvider();
+//        provider.addScope('profile');
+//        provider.addScope('email');
+//        firebase.auth().signInWithPopup(provider).then(function (result) {
+//            // This gives you a Google Access Token.
+//            var token = result.credential.accessToken;
+//            // The signed-in user info.
+//            var user = result.user;
+//        });
         Polymer({
             is: 'my-app'
             , signIn: function () {

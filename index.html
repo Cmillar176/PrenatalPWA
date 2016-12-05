@@ -13,7 +13,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-    <title>Prenatal Notes</title>
     <meta name="description" content="My App description">
     <link rel="icon" href="/images/manifest/img2.png">
     <!-- See https://goo.gl/OOhYW5 -->
@@ -48,6 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     <script>
         // Initialize Firebase
+        /*
         var config = {
             name: "PrenatalPWA",
             apiKey: "AIzaSyB0KgoGx8gl7FcW4Gu5jm1ibU9GsgYeQlA",
@@ -57,6 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             messagingSenderId: "404988514138"
         };
         firebase.initializeApp(config);
+        */
         // Setup Polymer options
         window.Polymer = {
             dom: 'shadow'
@@ -94,7 +95,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
     </script>
     <link rel="import" href="/src/my-app.html">
-<!--    <link rel="import" href="bower_components/polymerfire/firebase-app.html">-->
+    <link rel="import" href="bower_components/polymerfire/firebase-app.html">
+      <!-- Configure Firebase app: -->
     <style>
         body {
             margin: 0;
@@ -107,6 +109,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body>
+<!--
+            storageBucket: "prenatalpwa.appspot.com",
+            messagingSenderId: "404988514138" -->
+      <firebase-app
+      name="PrenatalPWA"
+      api-key="AIzaSyB0KgoGx8gl7FcW4Gu5jm1ibU9GsgYeQlA"
+      auth-domain="prenatalpwa.firebaseapp.com"
+      database-url="https://prenatalpwa.firebaseio.com">
+  </firebase-app>
     <my-app></my-app>
 </body>
 
