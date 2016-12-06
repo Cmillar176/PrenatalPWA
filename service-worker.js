@@ -21,7 +21,6 @@ var filesToCache = [
     '/src/my-appointments.html',
     '/src/my-details.html',
     '/src/splash-page.html',
-    '/src/app-shell.html',
     '/src/landing-page.html'
 ];
 self.addEventListener('install', function (e) {

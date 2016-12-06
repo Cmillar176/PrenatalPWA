@@ -1,0 +1,6 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/Scripts/app.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/build/unbundled/bower_components/webcomponentsjs/webcomponents-lite.min.js"
+    ]
+}
