@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "testproject-f434a"
+    "default": "testproject-f434a",
+    "firebase use PrenatalPWA": "prenatalpwa",
+    "PrenatalPWA": "prenatalpwa"
   }
 }

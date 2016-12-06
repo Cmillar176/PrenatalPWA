@@ -14,7 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
     <meta name="description" content="My App description">
-    <link rel="icon" href="/images/manifest/img2.png">
+    <link rel="icon" href="/images/manifest/manifestIcon.png">
     <!-- See https://goo.gl/OOhYW5 -->
     <link rel="manifest" href="/manifest.json">
     <!-- See https://goo.gl/qRE0vM -->
@@ -27,13 +27,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="My App">
     <!-- Homescreen icons -->
-    <link rel="apple-touch-icon" href="/images/manifest/img3.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/manifest/img1.png">
-    <link rel="apple-touch-icon" sizes="96x96" href="/images/manifest/img1.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/images/manifest/img1.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="/images/manifest/img1.png">
+    <link rel="apple-touch-icon" href="/images/manifest/manifestIcon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/manifest/manifestIcon.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="/images/manifest/manifestIcon.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/manifest/manifestIcon.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/images/manifest/manifestIcon.png">
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="/images/manifest/img1.png">
+    <meta name="msapplication-TileImage" content="/images/manifest/manifestIcon.png">
     <meta name="msapplication-TileColor" content="#7E57C2">
     <meta name="msapplication-tap-highlight" content="no">
     
@@ -46,18 +46,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     
     <script>
-        // Initialize Firebase
-        /*
-        var config = {
-            name: "PrenatalPWA",
-            apiKey: "AIzaSyB0KgoGx8gl7FcW4Gu5jm1ibU9GsgYeQlA",
-            authDomain: "prenatalpwa.firebaseapp.com",
-            databaseURL: "https://prenatalpwa.firebaseio.com",
-            storageBucket: "prenatalpwa.appspot.com",
-            messagingSenderId: "404988514138"
-        };
-        firebase.initializeApp(config);
-        */
         // Setup Polymer options
         window.Polymer = {
             dom: 'shadow'
@@ -109,9 +97,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body>
-<!--
-            storageBucket: "prenatalpwa.appspot.com",
-            messagingSenderId: "404988514138" -->
       <firebase-app
       name="PrenatalPWA"
       api-key="AIzaSyB0KgoGx8gl7FcW4Gu5jm1ibU9GsgYeQlA"

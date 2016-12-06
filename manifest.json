@@ -7,12 +7,12 @@
   "background_color": "#7E57C2",
   "icons": [
     {
-      "src": "images/manifest/img1.png",
+      "src": "images/manifest/manifestIcon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "images/manifest/img2.png",
+      "src": "images/manifest/manifestIcon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
