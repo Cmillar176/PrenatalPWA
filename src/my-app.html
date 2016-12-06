@@ -76,11 +76,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </style>
         <app-location route="{{route}}"></app-location>
         <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+        <splash-page on-sign-in="signIn" signed-in="[[signedIn]]" disabled="[[!online]]"> </splash-page>
+
         <app-drawer-layout fullbleed>
-            <splash-page on-sign-in="signIn" signed-in="[[signedIn]]" disabled="[[!online]]"> </splash-page>
             
             <!--Drawer content -->
-            <app-drawer disabled="[[!online]]">
+            <app-drawer hidden>
                 <app-toolbar>Menu </app-toolbar>
                 <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation"> 
                     <a name="my-notes" href="/my-notes">My Notes</a> 
@@ -99,7 +100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         
                         <iron-icon class="Logo" icon="search"></iron-icon>
 <!--                        <iron-icon icon="icons:account-circle"></iron-icon>-->
-                        <paper-button on-sign-out="signOut" hidden="[[!signedIn]]">
+                        <paper-button on-tap="signOut" hidden="[[!signedIn]]">
                             <iron-icon icon="account-circle"></iron-icon>
                             <span>Sign Out from Google</span>
                         </paper-button> 
