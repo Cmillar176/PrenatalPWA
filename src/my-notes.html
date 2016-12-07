@@ -1,4 +1,3 @@
-
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
@@ -6,27 +5,21 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="manifest" href="/manifest.json">
-
 <dom-module id="my-notes">
     <template>
-        <firebase-auth user="{{user}}"></firebase-auth>
-<!--        Lets us talk to firebase DB-->
-        <firebase-query 
-            id="query"
-            path="/users/[[user.uid]]/notes"
-            data="{{notes}}">
-        </firebase-query>
-        
+        <firebase-auth user="{{user}}"></firebase-auth> 
+        <!--        Lets us talk to firebase DB-->
+        <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
+        <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
         <div id="card">
             <div id="notes">
                 <ul id="notes-list">
-                    <template is="dom-repeat" items="[[notes]]" as="note">
-                    <li>
-                        <p class="content">[[note.content]]</p></li>
+                    <template is="dom-repeat" items="[[persistedNotes]]" as="note">
+                        <li>
+                            <p class="content">[[note.content]]</p>
+                        </li>
                     </template>
-                
                 </ul>
-                
                 <paper-input id="input" label="Take a note..."></paper-input>
                 <div id="notes-controls">
                     <paper-button id="add" on-tap="add">Add</paper-button>
@@ -34,23 +27,20 @@
             </div>
         </div>
     </template>
-    
     <script>
         Polymer({
-            is: 'my-notes',
-            properties: {
+            is: 'my-notes'
+            , properties: {
                 notes: {
                     type: Object
-                }
-            },
-            add: function() {
-            //pushing content object
+                }},
+                add: function () {
+                //pushing content object
                 this.$.query.ref.push({
-                     content: this.$.input.value
-                  });
-                    
-                 //clearing text field for next input
-                 this.$.input.value = null;
+                    content: this.$.input.value
+                });
+                //clearing text field for next input
+                this.$.input.value = null;
             }
         });
     </script>
