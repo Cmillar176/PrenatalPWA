@@ -8,11 +8,9 @@
 <link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="manifest" href="/manifest.json">
 <link rel="import" href="my-icons.html">
-
 <dom-module id="my-notes">
     <template>
         <style>
-            
             paper-card {
                 width: 600px;
                 margin-top: 40px;
@@ -32,7 +30,6 @@
             #private {
                 background-color: #EF5350;
                 float: right;
-                
             }
             
             #notes-controls {
@@ -41,65 +38,49 @@
             
             --paper-card-header-color: #9575CD;
         </style>
-        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth> 
-        
+        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <!--        Lets us talk to firebase DB-->
-        <firebase-query id="query" 
-                        app-name="PrenatalPWA" 
-                        path="/users/[[user.uid]]/notes" 
-                        data="{{notes}}"> 
-        </firebase-query>
-        
+        <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
-        
-        <paper-card heading="Notes">
-            <div id="card">
-                <div id="notes">
-                    <ul id="notes-list">
-                        <template is="dom-repeat" items="[[persistedNotes]]" as="note">
-                            <li>
-                                <p class="content">[[note.content]]</p>
-                                <paper-icon-button icon="clear" note="[[note]]" on-tap="delete"></paper-icon-button>
-                            </li>
-                        </template>
-                    </ul>
-                    <paper-input id="input" label="Type a note..."></paper-input>
-                    <div id="notes-controls">
-                        <paper-button raised id="add" on-tap="add">Add</paper-button>
-                        <paper-button raised id="edit" on-tap="edit">Edit</paper-button>
-                        <paper-button raised id="delete" on-tap="delete">Delete</paper-button>
-                        <paper-button raised id="private" on-tap="private">Mark as private</paper-button>
-                    </div>
-                </div>
+        <paper-card>
+            <div id="add-note">
+                <paper-input id="input" label="Type a note..."></paper-input>
+            </div>
+            <div id="notes-controls">
+                <paper-button raised id="add" on-tap="add">Add</paper-button>
             </div>
         </paper-card>
+        
+        <template is="dom-repeat" items="[[persistedNotes]]" as="note">
+            <paper-card>
+                <p class="content">[[note.content]]</p>
+                <paper-button raised id="edit" on-tap="edit">Edit</paper-button>
+                <paper-button note="[[note]]" on-tap="delete">Delete</paper-button>
+                <paper-button raised id="private" on-tap="private">Mark as private</paper-button>
+            </paper-card>
+        </template>
+        
     </template>
     <script>
-        
-        
         Polymer({
-            is: 'my-notes',
-             properties: {
+            is: 'my-notes'
+            , properties: {
                 notes: {
                     type: Object
-                }},
-                add: function () {
+                }
+            }
+            , add: function () {
                 //pushing content object
                 this.$.query.ref.push({
                     content: this.$.input.value
-//                    firebase.initializeApp();
-//                    firebase.database().ref('/users/[[user.uid]]/notes').push(users)
                 });
                 //clearing text field for next input
-                //this.$.input.value = null;
-                },
-            
-                delete: function(e) {
-                    var key = e.currentTarget.note.$key;
-                    this.$.query.ref.child(key).remove();
-                }
-            
-            
+                this.$.input.value = null;
+            }
+            , delete: function (e) {
+                var key = e.currentTarget.note.$key;
+                this.$.query.ref.child(key).remove();
+            }
         });
     </script>
 </dom-module>
