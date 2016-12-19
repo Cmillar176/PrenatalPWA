@@ -1,28 +1,57 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<!--<link rel="import" href="shared-styles.css">-->
 <link rel="manifest" href="/manifest.json">
-
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../src/my-icons.html">
 
 <dom-module id="my-appointments">
   <template>
-      <div> Under construction </div>
-    <style>
-      :host {
-        display: block;
+      <style>
+            
+            paper-card {
+                width: 600px;
+                margin-top: 40px;
+                margin-left: 40px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+                z-index: 30px;
+                font-size: 12px;
+            }
+          
+            paper-button {
+                background-color: #9575CD;
+                color: white 
+            }
+            
+            #notes-controls {
+                padding-top: 20px;
+            }
+          
+          #current {
+           font-size: 16px;   
+          }
+          
+            --paper-card-header-color: #9575CD;
+        </style>
+      
+      <paper-card id="current" heading="Current Appointments">
 
-        padding: 10px;
-      }
-    </style>
+            <div id="card">
+                <div id="current-appointments">
+                </div>
+            </div>
+        </paper-card>
+      
+      <paper-card heading="Previous Appointments">
+
+            <div id="card">
+                <div id="previous-appointments">
+                </div>
+            </div>
+        </paper-card>
   </template>
 
   <script>

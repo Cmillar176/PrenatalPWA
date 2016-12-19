@@ -1,12 +1,3 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
@@ -71,28 +62,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 color: black;
                 font-weight: bold;
             }
+                
+            .search {
+                float: right;
+                padding-right: 15px;
+                padding-top: 10px;   
+            }
+                
+            .signOut {
+                
+                width:100px;
+            }
+                
+                
         </style>
         <app-location route="{{route}}"></app-location>
         <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
         <splash-page on-sign-in="signIn" signed-in="[[signedIn]]"> </splash-page>
         <app-drawer-layout fullbleed>
+            
             <!--Drawer content -->
             <app-drawer hidden="[[!signedIn]]">
                 <app-toolbar>Menu </app-toolbar>
                 <iron-selector attr-for-selected="name" class="drawer-list" role="navigation"> <a name="my-notes" href="/my-notes">My Notes</a> <a name="my-appointments" href="/my-appointments">My Appointments</a> <a name="my-details" href="/my-details">My Details</a> </iron-selector>
             </app-drawer>
+            
             <!-- Main content -->
             <app-header-layout has-scrolling-region>
                 <app-header condenses reveals effects="waterfall">
                     <app-toolbar>
                         <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
                         <div main-title>Prenatal Notes <img src="/images/icon.png" style="width:30px;height:30px;"> </div>
-                        <iron-icon class="Logo" icon="search"></iron-icon>
-                        <!--                        <iron-icon icon="icons:account-circle"></iron-icon>-->
-                        <paper-button on-tap="signOut" hidden="[[!signedIn]]">
+                        <paper-button class="signOut" on-tap="signOut" hidden="[[!signedIn]]">
                             <iron-icon icon="account-circle"></iron-icon> <span>Sign Out</span> </paper-button>
                     </app-toolbar>
                 </app-header>
+                 <iron-icon class="search" icon="search"></iron-icon>
                 <iron-pages selected="{{page}}" attr-for-selected="name" fallback-selection="view404" role="main">
                     <my-notes name="my-notes"> </my-notes>
                     <my-appointments name="my-appointments"></my-appointments>
@@ -103,16 +108,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <firebase-auth id="auth" app-name="PrenatalPWA" provider="google" signed-in="{{signedIn}}" user="{{user}}"> </firebase-auth>
     </template>
     <script>
-        // Using a popup.
-        //        var provider = new firebase.auth.GoogleAuthProvider();
-        //        provider.addScope('profile');
-        //        provider.addScope('email');
-        //        firebase.auth().signInWithPopup(provider).then(function (result) {
-        //            // This gives you a Google Access Token.
-        //            var token = result.credential.accessToken;
-        //            // The signed-in user info.
-        //            var user = result.user;
-        //        });
+       
         Polymer({
             is: 'my-app'
             , signIn: function () {

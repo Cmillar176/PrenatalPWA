@@ -3,34 +3,83 @@
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="manifest" href="/manifest.json">
+<link rel="import" href="my-icons.html">
+
 <dom-module id="my-notes">
     <template>
-        <firebase-auth user="{{user}}"></firebase-auth> 
+        <style>
+            
+            paper-card {
+                width: 600px;
+                margin-top: 40px;
+                margin-left: 40px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+                z-index: 30px;
+            }
+            
+            paper-button {
+                background-color: #9575CD;
+                color: white;
+                font-size: 12px;
+            }
+            
+            #private {
+                background-color: #EF5350;
+                float: right;
+                
+            }
+            
+            #notes-controls {
+                padding-top: 20px;
+            }
+            
+            --paper-card-header-color: #9575CD;
+        </style>
+        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth> 
+        
         <!--        Lets us talk to firebase DB-->
-        <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
+        <firebase-query id="query" 
+                        app-name="PrenatalPWA" 
+                        path="/users/[[user.uid]]/notes" 
+                        data="{{notes}}"> 
+        </firebase-query>
+        
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
-        <div id="card">
-            <div id="notes">
-                <ul id="notes-list">
-                    <template is="dom-repeat" items="[[persistedNotes]]" as="note">
-                        <li>
-                            <p class="content">[[note.content]]</p>
-                        </li>
-                    </template>
-                </ul>
-                <paper-input id="input" label="Take a note..."></paper-input>
-                <div id="notes-controls">
-                    <paper-button id="add" on-tap="add">Add</paper-button>
+        
+        <paper-card heading="Notes">
+            <div id="card">
+                <div id="notes">
+                    <ul id="notes-list">
+                        <template is="dom-repeat" items="[[persistedNotes]]" as="note">
+                            <li>
+                                <p class="content">[[note.content]]</p>
+                                <paper-icon-button icon="clear" note="[[note]]" on-tap="delete"></paper-icon-button>
+                            </li>
+                        </template>
+                    </ul>
+                    <paper-input id="input" label="Type a note..."></paper-input>
+                    <div id="notes-controls">
+                        <paper-button raised id="add" on-tap="add">Add</paper-button>
+                        <paper-button raised id="edit" on-tap="edit">Edit</paper-button>
+                        <paper-button raised id="delete" on-tap="delete">Delete</paper-button>
+                        <paper-button raised id="private" on-tap="private">Mark as private</paper-button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </paper-card>
     </template>
     <script>
+        
+        
         Polymer({
-            is: 'my-notes'
-            , properties: {
+            is: 'my-notes',
+             properties: {
                 notes: {
                     type: Object
                 }},
@@ -38,10 +87,19 @@
                 //pushing content object
                 this.$.query.ref.push({
                     content: this.$.input.value
+//                    firebase.initializeApp();
+//                    firebase.database().ref('/users/[[user.uid]]/notes').push(users)
                 });
                 //clearing text field for next input
-                this.$.input.value = null;
-            }
+                //this.$.input.value = null;
+                },
+            
+                delete: function(e) {
+                    var key = e.currentTarget.note.$key;
+                    this.$.query.ref.child(key).remove();
+                }
+            
+            
         });
     </script>
 </dom-module>
