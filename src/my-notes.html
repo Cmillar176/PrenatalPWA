@@ -6,6 +6,7 @@
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="manifest" href="/manifest.json">
 <link rel="import" href="my-icons.html">
 <dom-module id="my-notes">
@@ -36,13 +37,18 @@
                 padding-top: 20px;
             }
             
-            --paper-card-header-color: #9575CD;
+            #add-date {
+                width: 220px;   
+            }
         </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <!--        Lets us talk to firebase DB-->
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
         <paper-card>
+            <div id ="add-date">
+                <vaadin-date-picker id="datePicker" label="Insert date of appointment"> </vaadin-date-picker>
+            </div>
             <div id="add-note">
                 <paper-input id="input" label="Type a note..."></paper-input>
             </div>
@@ -50,7 +56,6 @@
                 <paper-button raised id="add" on-tap="add">Add</paper-button>
             </div>
         </paper-card>
-        
         <template is="dom-repeat" items="[[persistedNotes]]" as="note">
             <paper-card>
                 <p class="content">[[note.content]]</p>
@@ -59,7 +64,6 @@
                 <paper-button raised id="private" on-tap="private">Mark as private</paper-button>
             </paper-card>
         </template>
-        
     </template>
     <script>
         Polymer({
@@ -80,6 +84,16 @@
             , delete: function (e) {
                 var key = e.currentTarget.note.$key;
                 this.$.query.ref.child(key).remove();
+            }
+        });
+        new Polymer.IronMeta({
+            type: 'validator'
+            , key: 'this-year-validator'
+            , value: {
+                validate: function (value) {
+                    var currentYear = new Date().getFullYear();
+                    return new Date(value).getFullYear() === currentYear;
+                }
             }
         });
     </script>
