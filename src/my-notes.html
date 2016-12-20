@@ -38,7 +38,19 @@
             }
             
             #add-date {
-                width: 220px;   
+                width: 220px;
+            }
+            
+            #add-note {
+                width: 500px;
+            }
+            
+            #add-gestation{
+             width: 130px;   
+            }
+            
+            #weeks{
+             width:130px;   
             }
         </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
@@ -46,11 +58,15 @@
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
         <paper-card>
-            <div id ="add-date">
-                <vaadin-date-picker id="datePicker" label="Insert date of appointment"> </vaadin-date-picker>
+            <div id="add-date">
+                <vaadin-date-picker id="datePicker" label="Date of appointment"> </vaadin-date-picker>
+            </div>
+            <div id="add-gestation">
+                <paper-input id="weeks" label="Gestation" type="number"><div suffix>Weeks</div></paper-input>
+                <paper-input label="Gestation" type="number"><div suffix>Days</div> </paper-input>
             </div>
             <div id="add-note">
-                <paper-input id="input" label="Type a note..."></paper-input>
+                <paper-input id="input" label="Add appointment details"></paper-input>
             </div>
             <div id="notes-controls">
                 <paper-button raised id="add" on-tap="add">Add</paper-button>
