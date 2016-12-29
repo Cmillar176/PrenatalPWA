@@ -5,6 +5,7 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="manifest" href="/manifest.json">
@@ -37,34 +38,51 @@
                 padding-top: 20px;
             }
             
-            #add-date {
-                width: 220px;
+            #appointmentDate {
+                width: 200px;
+            }
+            
+            #gestationDate {
+                width: 200px;
             }
             
             #add-note {
                 width: 500px;
             }
             
-            #add-gestation{
-             width: 130px;   
+            #patient-info {
+                padding-top: 20px;
             }
             
-            #weeks{
-             width:130px;   
+            #bloodPressure{
+                width:120px;
             }
+            
+            #gestationDate{
+             padding-bottom: 20px;   
+            }
+
+            paper-input-container
         </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <!--        Lets us talk to firebase DB-->
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
         <paper-card>
-            <div id="add-date">
-                <vaadin-date-picker id="datePicker" label="Date of appointment"> </vaadin-date-picker>
+            <div id="appointment-details">
+            <vaadin-date-picker id="appointmentDate" label="Date of appointment"> </vaadin-date-picker>
+            <vaadin-date-picker id="gestationDate" label="Beginning of gestation"> </vaadin-date-picker>
+            <input type="checkbox" id="movementFelt" value="movementFelt" required> Fetal movement felt?<br>
+            <input type="checkbox" id="movementDiscussed" value="movementDiscussed" required> Fetal movement discussed?<br>
+            <input type="checkbox" id="healthDiscussed" value="healthDiscussed" required> Mental health and wellbeing discussed?<br>                                   <paper-input maxlength="6" id="bloodPressure" label="Blood pressure"></paper-input>
             </div>
+
+<!--
             <div id="add-gestation">
                 <paper-input id="weeks" label="Gestation" type="number"><div suffix>Weeks</div></paper-input>
                 <paper-input label="Gestation" type="number"><div suffix>Days</div> </paper-input>
             </div>
+-->
             <div id="add-note">
                 <paper-input id="input" label="Add appointment details"></paper-input>
             </div>
@@ -80,6 +98,25 @@
                 <paper-button raised id="private" on-tap="private">Mark as private</paper-button>
             </paper-card>
         </template>
+        
+        <div class="notes">
+      <template is="dom-repeat" items="[[persistedData]]" as="note">
+        <na-note
+            id$="[[note.$key]]"
+            title="[[note.title]]"
+            body="[[note.body]]"
+            on-tap="edit">
+        </na-note>
+      </template>
+    </div>
+        
+        <firebase-document
+        id="document"
+        app-name="notes"
+        path="[[editableNoteId]]"
+        data="{{editableNote}}">
+    </firebase-document>
+        
     </template>
     <script>
         Polymer({
