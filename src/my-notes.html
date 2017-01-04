@@ -68,15 +68,16 @@
         <!--        Lets us talk to firebase DB-->
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
-        <paper-card>
+       
+        <paper-card class="details">
             <div id="appointment-details">
             <vaadin-date-picker id="appointmentDate" label="Date of appointment"> </vaadin-date-picker>
             <vaadin-date-picker id="gestationDate" label="Beginning of gestation"> </vaadin-date-picker>
-            <input type="checkbox" id="movementFelt" value="movementFelt" required> Fetal movement felt?<br>
-            <input type="checkbox" id="movementDiscussed" value="movementDiscussed" required> Fetal movement discussed?<br>
-            <input type="checkbox" id="healthDiscussed" value="healthDiscussed" required> Mental health and wellbeing discussed?<br>                                   <paper-input maxlength="6" id="bloodPressure" label="Blood pressure"></paper-input>
+            <input type="checkbox" id="movementFelt" on-click="movementFeltClicked" checked="{{movementFelt}}"> Fetal movement felt?<br>
+            <input type="checkbox" id="movementDiscussed" on-click="movementDiscussedClicked" checked="{{movementDiscussed}}"> Fetal movement discussed?<br>
+            <input type="checkbox" id="healthDiscussed" class="select" on-click="healthClicked" checked="{{healthChecked}}"> Mental health and wellbeing discussed?<br>                 
+            <paper-input maxlength="6" id="bloodPressure" label="Blood pressure"></paper-input>
             </div>
-
 <!--
             <div id="add-gestation">
                 <paper-input id="weeks" label="Gestation" type="number"><div suffix>Weeks</div></paper-input>
@@ -90,9 +91,11 @@
                 <paper-button raised id="add" on-tap="add">Add</paper-button>
             </div>
         </paper-card>
+        
         <template is="dom-repeat" items="[[persistedNotes]]" as="note">
             <paper-card>
-                <p class="content">[[note.content]]</p>
+                <p class="content">Appointment Details: [[note.content]]</p>
+                <p class="info">Mental health and wellbeing discussed: [[healthChecked]]</p>
                 <paper-button raised id="edit" on-tap="edit">Edit</paper-button>
                 <paper-button note="[[note]]" on-tap="delete">Delete</paper-button>
                 <paper-button raised id="private" on-tap="private">Mark as private</paper-button>
@@ -101,12 +104,14 @@
         
         <div class="notes">
       <template is="dom-repeat" items="[[persistedData]]" as="note">
+<!--
         <na-note
             id$="[[note.$key]]"
             title="[[note.title]]"
             body="[[note.body]]"
             on-tap="edit">
         </na-note>
+-->
       </template>
     </div>
         
@@ -124,12 +129,40 @@
             , properties: {
                 notes: {
                     type: Object
+                },
+                
+                healthDiscussed:{
+                  type: Boolean,
+                  value: false,
+                },
+                
+                movementDiscussed: {
+                    type: Boolean,
+                    value: false
+                },
+                
+                movementFelt: {
+                    type: Boolean,
+                    value: false
                 }
+                
             }
+           , healthClicked: function() {
+               this.checked = this.$.healthDiscussed.checked;
+           }
+            
+            , movementFeltClicked: function() {
+               this.checked = this.$.movementFelt.checked;
+           }
+            
+            , movementDiscussedClicked: function() {
+               this.checked = this.$.movementDiscussed.checked;
+           }
+            
             , add: function () {
                 //pushing content object
                 this.$.query.ref.push({
-                    content: this.$.input.value
+                    content: this.$.input.value,
                 });
                 //clearing text field for next input
                 this.$.input.value = null;
