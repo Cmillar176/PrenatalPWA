@@ -4,6 +4,7 @@
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
@@ -54,57 +55,76 @@
                 padding-top: 20px;
             }
             
-            #bloodPressure{
-                width:120px;
+            #bloodPressure {
+                width: 120px;
             }
             
-            #gestationDate{
-             padding-bottom: 20px;   
+            #gestationWeeks {
+                width: 120px;
             }
-
+            
+            #gestationDays {
+                width: 110px;
+            }
+            
+            #checkboxContainer {
+                --paper-checkbox-checked-color: #7E57C2;
+                display: inline-block;
+                padding: 0 0 0 0px;
+                /*
+                display: inline-flex;
+                vertical-align: var(--paper-checkbox-vertical-align, middle);
+*/
+            }
+            
             paper-input-container
         </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <!--        Lets us talk to firebase DB-->
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
-       
         <paper-card class="details">
             <div id="appointment-details">
-            <vaadin-date-picker id="appointmentDate" label="Date of appointment"> </vaadin-date-picker>
-            <vaadin-date-picker id="gestationDate" label="Beginning of gestation"> </vaadin-date-picker>
-            <input type="checkbox" id="movementFelt" on-click="movementFeltClicked" checked="{{movementFelt}}"> Fetal movement felt?<br>
-            <input type="checkbox" id="movementDiscussed" on-click="movementDiscussedClicked" checked="{{movementDiscussed}}"> Fetal movement discussed?<br>
-            <input type="checkbox" id="healthDiscussed" class="select" on-click="healthClicked" checked="{{healthChecked}}"> Mental health and wellbeing discussed?<br>                 
-            <paper-input maxlength="6" id="bloodPressure" label="Blood pressure"></paper-input>
+                <vaadin-date-picker id="appointmentDate" label="Date of appointment"> </vaadin-date-picker>
+                <paper-input id="gestationWeeks" maxlength="2" label="Gestation" type="number">
+                    <div suffix>Weeks</div>
+                </paper-input>
+                <paper-input id="gestationDays" maxlength="2" label="Gestation" type="number">
+                    <div suffix>Days</div>
+                </paper-input>
+                <!--            <vaadin-date-picker id="gestationDate" label="Beginning of gestation"> </vaadin-date-picker>-->
+                <paper-input maxlength="6" id="bloodPressure" label="Blood pressure"></paper-input>
+                <div id="checkboxContainer">
+                    <paper-checkbox id="movementFelt" checked="{{newNote.movementFelt}}"> Fetal movement felt?</paper-checkbox>
+                    <paper-checkbox id="movementDiscussed" checked="{{newNote.movementDiscussed}}"> Fetal movement discussed?</paper-checkbox>
+                    <paper-checkbox id="healthDiscussed" class="select" checked="{{newNote.healthChecked}}"> Mental health and wellbeing discussed?</paper-checkbox>
+                </div>
             </div>
-<!--
-            <div id="add-gestation">
-                <paper-input id="weeks" label="Gestation" type="number"><div suffix>Weeks</div></paper-input>
-                <paper-input label="Gestation" type="number"><div suffix>Days</div> </paper-input>
-            </div>
--->
             <div id="add-note">
-                <paper-input id="input" label="Add appointment details"></paper-input>
+                <paper-input id="input" label="Add appointment details" value="{{newNote.content}}"></paper-input>
             </div>
             <div id="notes-controls">
                 <paper-button raised id="add" on-tap="add">Add</paper-button>
             </div>
         </paper-card>
-        
         <template is="dom-repeat" items="[[persistedNotes]]" as="note">
             <paper-card>
-                <p class="content">Appointment Details: [[note.content]]</p>
-                <p class="info">Mental health and wellbeing discussed: [[healthChecked]]</p>
+                <p class="date">Appointment date:</p>
+                <p class="gestationWeeks">Gestation weeks:</p>
+                <p class="gestationDays">Gestation days:</p>
+                <p class="content">Appointment details: [[note.content]]</p>
+                <p class="movementFelt">Fetal movement felt: [[note.movementFelt]]</p>
+                <p class="movementDiscussed">Fetal movement discussed: [[note.movementDiscussed]]</p>
+                <p class="healthDiscussed">Mental health and wellbeing discussed: [[note.healthDiscussed]]</p>
+                <p class="bp">Blood pressure: </p>
                 <paper-button raised id="edit" on-tap="edit">Edit</paper-button>
                 <paper-button note="[[note]]" on-tap="delete">Delete</paper-button>
                 <paper-button raised id="private" on-tap="private">Mark as private</paper-button>
             </paper-card>
         </template>
-        
         <div class="notes">
-      <template is="dom-repeat" items="[[persistedData]]" as="note">
-<!--
+            <template is="dom-repeat" items="[[persistedData]]" as="note">
+                <!--
         <na-note
             id$="[[note.$key]]"
             title="[[note.title]]"
@@ -112,16 +132,9 @@
             on-tap="edit">
         </na-note>
 -->
-      </template>
-    </div>
-        
-        <firebase-document
-        id="document"
-        app-name="notes"
-        path="[[editableNoteId]]"
-        data="{{editableNote}}">
-    </firebase-document>
-        
+            </template>
+        </div>
+        <firebase-document id="document" app-name="notes" path="[[editableNoteId]]" data="{{editableNote}}"> </firebase-document>
     </template>
     <script>
         Polymer({
@@ -129,43 +142,53 @@
             , properties: {
                 notes: {
                     type: Object
-                },
-                
-                healthDiscussed:{
-                  type: Boolean,
-                  value: false,
-                },
-                
-                movementDiscussed: {
-                    type: Boolean,
-                    value: false
-                },
-                
-                movementFelt: {
-                    type: Boolean,
-                    value: false
                 }
-                
+                , newNote: {
+                    type: Object
+                    , value: function () {
+                        return {
+                            content: ""
+                            , healthDiscussed: false
+                            , movementDiscussed: false
+                            , movementFelt: false
+                        }
+                    }
+                }
+                //                healthDiscussed:{
+                //                  type: Boolean,
+                //                  value: false,
+                //                },
+                //                
+                //                movementDiscussed: {
+                //                    type: Boolean,
+                //                    value: false
+                //                },
+                //                
+                //                movementFelt: {
+                //                    type: Boolean,
+                //                    value: false
+                //                }
             }
-           , healthClicked: function() {
-               this.checked = this.$.healthDiscussed.checked;
-           }
-            
-            , movementFeltClicked: function() {
-               this.checked = this.$.movementFelt.checked;
-           }
-            
-            , movementDiscussedClicked: function() {
-               this.checked = this.$.movementDiscussed.checked;
-           }
+            //           , healthClicked: function() {
+            //               this.checked = this.$.healthDiscussed;
+            //           }
+            //            , movementFeltClicked: function() {
+            //               this.checked = this.$.movementFelt;
+            //           }
+            //            , movementDiscussedClicked: function() {
+            //               this.checked = this.$.movementDiscussed;
+            //           }
             
             , add: function () {
                 //pushing content object
-                this.$.query.ref.push({
-                    content: this.$.input.value,
-                });
-                //clearing text field for next input
-                this.$.input.value = null;
+                this.$.query.ref.push(this.newNote);
+                //clearing field for next input
+                this.newNote = {
+                    content: ""
+                    , healthDiscussed: false
+                    , movementDiscussed: false
+                    , movementFelt: false
+                };
             }
             , delete: function (e) {
                 var key = e.currentTarget.note.$key;
