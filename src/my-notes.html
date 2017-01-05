@@ -77,7 +77,6 @@
 */
             }
             
-            paper-input-container
         </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <!--        Lets us talk to firebase DB-->
@@ -85,19 +84,21 @@
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
         <paper-card class="details">
             <div id="appointment-details">
-                <vaadin-date-picker id="appointmentDate" label="Date of appointment"> </vaadin-date-picker>
-                <paper-input id="gestationWeeks" maxlength="2" label="Gestation" type="number">
+                <vaadin-date-picker id="appointmentDate" label="Date of appointment" value="{{newNote.appointmentDate}}"> </vaadin-date-picker>
+                <paper-input id="gestationWeeks" maxlength="2" label="Gestation" type="number" value="{{newNote.gestationWeeks}}">
                     <div suffix>Weeks</div>
                 </paper-input>
-                <paper-input id="gestationDays" maxlength="2" label="Gestation" type="number">
+                <paper-input id="gestationDays" maxlength="2" label="Gestation" type="number" value="{{newNote.gestationDays}}">
                     <div suffix>Days</div>
                 </paper-input>
                 <!--            <vaadin-date-picker id="gestationDate" label="Beginning of gestation"> </vaadin-date-picker>-->
-                <paper-input maxlength="6" id="bloodPressure" label="Blood pressure"></paper-input>
+                <paper-input maxlength="6" id="bloodPressure" value="{{newNote.bloodPressure}}" label="Blood pressure"></paper-input>
+                
+<!--                TODO Align checkboxes-->
                 <div id="checkboxContainer">
                     <paper-checkbox id="movementFelt" checked="{{newNote.movementFelt}}"> Fetal movement felt?</paper-checkbox>
                     <paper-checkbox id="movementDiscussed" checked="{{newNote.movementDiscussed}}"> Fetal movement discussed?</paper-checkbox>
-                    <paper-checkbox id="healthDiscussed" class="select" checked="{{newNote.healthChecked}}"> Mental health and wellbeing discussed?</paper-checkbox>
+                    <paper-checkbox id="healthDiscussed" class="select" checked="{{newNote.healthDiscussed}}"> Mental health and wellbeing discussed?</paper-checkbox>
                 </div>
             </div>
             <div id="add-note">
@@ -109,14 +110,14 @@
         </paper-card>
         <template is="dom-repeat" items="[[persistedNotes]]" as="note">
             <paper-card>
-                <p class="date">Appointment date:</p>
-                <p class="gestationWeeks">Gestation weeks:</p>
-                <p class="gestationDays">Gestation days:</p>
-                <p class="content">Appointment details: [[note.content]]</p>
+                <p class="date">Appointment date: [[note.appointmentDate]]</p>
+                <p class="gestationWeeks">Gestation weeks: [[note.gestationWeeks]]</p>
+                <p class="gestationDays">Gestation days: [[note.gestationDays]]</p>
                 <p class="movementFelt">Fetal movement felt: [[note.movementFelt]]</p>
                 <p class="movementDiscussed">Fetal movement discussed: [[note.movementDiscussed]]</p>
                 <p class="healthDiscussed">Mental health and wellbeing discussed: [[note.healthDiscussed]]</p>
-                <p class="bp">Blood pressure: </p>
+                <p class="bloodPressure">Blood pressure: [[note.bloodPressure]]</p>
+                <p class="content">Appointment details: [[note.content]]</p>
                 <paper-button raised id="edit" on-tap="edit">Edit</paper-button>
                 <paper-button note="[[note]]" on-tap="delete">Delete</paper-button>
                 <paper-button raised id="private" on-tap="private">Mark as private</paper-button>
@@ -151,6 +152,10 @@
                             , healthDiscussed: false
                             , movementDiscussed: false
                             , movementFelt: false
+                            , bloodPressure: ""
+                            , gestationWeeks: ""
+                            , gestationDays: ""
+                            , appointmentDate: ""
                         }
                     }
                 }
@@ -188,6 +193,10 @@
                     , healthDiscussed: false
                     , movementDiscussed: false
                     , movementFelt: false
+                    , bloodPressure: ""
+                    , gestationWeeks: ""
+                    , gestationDays: ""
+                    , appointmentDate: ""
                 };
             }
             , delete: function (e) {
