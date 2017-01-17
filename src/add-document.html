@@ -1,0 +1,44 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="manifest" href="/manifest.json">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-shared-styles.html">
+<dom-module id="add-document">
+    <template>
+        <style>
+            paper-card {
+                width: 400px;
+                height: 100px;
+                margin-top: 40px;
+                margin-left: 40px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+                z-index: 30px;
+            }
+            
+            paper-button {
+                background-color: #9575CD;
+                color: white;
+            }
+            
+            --paper-card-header-color: #9575CD;
+        </style>
+        
+        <paper-card>
+           
+        </paper-card>
+        
+        
+    </template>
+    <script>
+      Polymer({
+            is: 'add-document'
+            , openModal: function () {}
+        });
+    </script>
+</dom-module>
