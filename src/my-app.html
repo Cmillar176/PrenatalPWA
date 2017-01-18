@@ -62,31 +62,26 @@
                 color: black;
                 font-weight: bold;
             }
-                
+            
             .search {
                 float: right;
                 padding-right: 15px;
-                padding-top: 10px;   
+                padding-top: 10px;
             }
-                
+            
             .signOut {
-                
-                width:100px;
+                width: 100px;
             }
-                
-                
         </style>
         <app-location route="{{route}}"></app-location>
         <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
         <splash-page on-sign-in="signIn" signed-in="[[signedIn]]"> </splash-page>
         <app-drawer-layout fullbleed>
-            
             <!--Drawer content -->
             <app-drawer hidden="[[!signedIn]]">
                 <app-toolbar>Menu </app-toolbar>
-                <iron-selector attr-for-selected="name" class="drawer-list" role="navigation"> <a name="my-appointments" href="/my-appointments">My Appointments</a> <a name="my-files" href="/my-files">My Files</a> <a name="my-details" href="/my-details">My Details</a> </iron-selector>
+                <iron-selector attr-for-selected="name" class="drawer-list" role="navigation"> <a name="add-files" href="/add-files">Add Files</a> <a name="my-appointments" href="/my-appointments">My Appointments</a> <a name="my-notes" href="/my-notes">My Notes</a> <a name="my-details" href="/my-details">My Details</a> </iron-selector>
             </app-drawer>
-            
             <!-- Main content -->
             <app-header-layout has-scrolling-region>
                 <app-header condenses reveals effects="waterfall">
@@ -97,10 +92,10 @@
                             <iron-icon icon="account-circle"></iron-icon> <span>Sign Out</span> </paper-button>
                     </app-toolbar>
                 </app-header>
-                 <iron-icon class="search" icon="search"></iron-icon>
+                <iron-icon class="search" icon="search"></iron-icon>
                 <iron-pages selected="{{page}}" attr-for-selected="name" fallback-selection="view404" role="main">
+                    <add-files name="add-files"> </add-files>
                     <my-notes name="my-notes"> </my-notes>
-                    <my-files name="my-files"> </my-files>
                     <my-appointments name="my-appointments"></my-appointments>
                     <my-details name="my-details"></my-details>
                 </iron-pages>
@@ -109,7 +104,6 @@
         <firebase-auth id="auth" app-name="PrenatalPWA" provider="google" signed-in="{{signedIn}}" user="{{user}}"> </firebase-auth>
     </template>
     <script>
-       
         Polymer({
             is: 'my-app'
             , signIn: function () {

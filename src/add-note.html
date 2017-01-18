@@ -12,7 +12,7 @@
 <link rel="manifest" href="/manifest.json">
 <link rel="import" href="../bower_components/iron-iconset-svg/iron-iconset-svg.html">
 <link rel="import" href="my-icons.html">
-<dom-module id="my-notes">
+<dom-module id="add-note">
     <template>
         <style>
             paper-card {
@@ -83,7 +83,31 @@
         <!--        Lets us talk to firebase DB-->
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
-        
+        <paper-card class="details">
+            <div id="appointment-details">
+                <vaadin-date-picker id="appointmentDate" label="Date of appointment" value="{{newNote.appointmentDate}}"> </vaadin-date-picker>
+                <paper-input id="gestationWeeks" maxlength="2" label="Gestation" type="number" value="{{newNote.gestationWeeks}}">
+                    <div suffix>Weeks</div>
+                </paper-input>
+                <paper-input id="gestationDays" maxlength="2" label="Gestation" type="number" value="{{newNote.gestationDays}}">
+                    <div suffix>Days</div>
+                </paper-input>
+                <!--            <vaadin-date-picker id="gestationDate" label="Beginning of gestation"> </vaadin-date-picker>-->
+                <paper-input maxlength="6" id="bloodPressure" value="{{newNote.bloodPressure}}" label="Blood pressure"></paper-input>
+                <!--                TODO Align checkboxes-->
+                <div id="checkboxContainer">
+                    <paper-checkbox id="movementFelt" checked="{{newNote.movementFelt}}"> Fetal movement felt?</paper-checkbox>
+                    <paper-checkbox id="movementDiscussed" checked="{{newNote.movementDiscussed}}"> Fetal movement discussed?</paper-checkbox>
+                    <paper-checkbox id="healthDiscussed" class="select" checked="{{newNote.healthDiscussed}}"> Mental health and wellbeing discussed?</paper-checkbox>
+                </div>
+            </div>
+            <div id="add-note">
+                <paper-input id="input" label="Add appointment details" value="{{newNote.content}}"></paper-input>
+            </div>
+            <div id="notes-controls">
+                <paper-button raised id="add" on-tap="add">Add</paper-button>
+            </div>
+        </paper-card>
         <template is="dom-repeat" items="[[persistedNotes]]" as="note">
             <paper-card>
                 <p class="date">Appointment date: [[note.appointmentDate]]</p>
@@ -115,7 +139,7 @@
     </template>
     <script>
         Polymer({
-            is: 'my-notes'
+            is: 'add-note'
             , properties: {
                 notes: {
                     type: Object
@@ -135,6 +159,21 @@
                         }
                     }
                 }
+            }
+            , add: function () {
+                //pushing content object
+                this.$.query.ref.push(this.newNote);
+                //clearing field for next input
+                this.newNote = {
+                    content: ""
+                    , healthDiscussed: false
+                    , movementDiscussed: false
+                    , movementFelt: false
+                    , bloodPressure: ""
+                    , gestationWeeks: ""
+                    , gestationDays: ""
+                    , appointmentDate: ""
+                };
             }
             , delete: function (e) {
                 var key = e.currentTarget.note.$key;

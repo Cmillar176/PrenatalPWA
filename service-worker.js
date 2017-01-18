@@ -20,8 +20,9 @@ var filesToCache = [
     '/src/my-notes.html',
     '/src/my-appointments.html',
     '/src/my-details.html',
-    '/src/my-files.html',
+    '/src/add-files.html',
     '/src/add-image.html',
+    '/src/add-note.html',
     '/src/splash-page.html',
     '/src/landing-page.html'
 ];

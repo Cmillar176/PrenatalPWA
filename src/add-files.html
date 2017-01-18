@@ -7,7 +7,7 @@
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
 <link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-shared-styles.html">
-<dom-module id="my-files">
+<dom-module id="add-files">
     <template>
         <style>
             paper-card {
@@ -29,7 +29,7 @@
             --paper-card-header-color: #9575CD;
         </style>
         <paper-card>
-            <a href="/my-notes">
+            <a href="/add-note">
                 <div>
                     <paper-button raised id="add-note"> Add Note</paper-button>
                 </div>
@@ -55,7 +55,7 @@
     </template>
     <script>
         Polymer({
-            is: 'my-files'
+            is: 'add-files'
             , openModal: function () {}
         });
     </script>
