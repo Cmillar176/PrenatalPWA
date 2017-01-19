@@ -12,27 +12,19 @@
 <link rel="import" href="../bower_components/iron-iconset-svg/iron-iconset-svg.html">
 <link rel="import" href="my-icons.html">
 <link rel="import" href="editable-note.html">
-<dom-module id="add-note">
+<dom-module id="edit-note">
     <template>
-        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
-        <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
-        <editable-note></editable-note>
+<!--        Get ID from firebase to populate 'note'-->
+        <editable-note note='{{note}}'> </editable-note>
     </template>
     <script>
         Polymer({
-            is: 'add-note'
-            , 
-            listeners:{'save-note':'_addNote'},
-            _addNote:function (event){
-            //save some shit
-                debugger;
-                //pushing content object
-                this.$.query.ref.push(event.detail.note);
-                
-                //navigate to list now its saved.
-                location.href="my-notes"
+            is: 'edit-note'
+            , properties: {
+                note: {
+                    type: Object
+                }
             }
         });
-        
     </script>
 </dom-module>

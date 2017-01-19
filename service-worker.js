@@ -23,6 +23,7 @@ var filesToCache = [
     '/src/add-files.html',
     '/src/add-image.html',
     '/src/add-note.html',
+    '/src/edit-note.html',
     '/src/splash-page.html',
     '/src/landing-page.html'
 ];
