@@ -21,18 +21,16 @@
     <script>
         Polymer({
             is: 'add-note'
-            , 
-            listeners:{'save-note':'_addNote'},
-            _addNote:function (event){
+            , listeners: {
+                'save-note': '_addNote'
+            }
+            , _addNote: function (event) {
                 debugger;
                 //pushing content object
                 this.$.query.ref.push(event.detail.note);
-                
-                
                 //navigate to list now its saved.
-                location.href="my-notes"
+                location.href = "my-notes"
             }
         });
-        
     </script>
 </dom-module>
