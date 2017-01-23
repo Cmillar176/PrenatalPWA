@@ -25,7 +25,8 @@ var filesToCache = [
     '/src/add-note.html',
     '/src/edit-note.html',
     '/src/splash-page.html',
-    '/src/landing-page.html'
+    '/src/landing-page.html',
+    '/src/editable-note.html'
 ];
 self.addEventListener('install', function (e) {
     console.log('[ServiceWorker] Install');
