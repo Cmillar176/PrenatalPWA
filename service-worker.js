@@ -24,25 +24,23 @@ var filesToCache = [
     '/src/add-image.html',
     '/src/add-note.html',
     '/src/edit-note.html',
+    '/src/view-note.html',
     '/src/splash-page.html',
     '/src/landing-page.html',
-    '/src/editable-note.html'
+    '/src/editable-note.html',
+    '/src/patient-note.html'
 ];
 self.addEventListener('install', function (e) {
-    console.log('[ServiceWorker] Install');
     e.waitUntil(caches.open(cacheName).then(function (cache) {
-        console.log('[ServiceWorker] Caching app shell');
         return cache.addAll(filesToCache);
     }));
 });
 
 //Ensures SW updates cache when app shell files change
 self.addEventListener('activate', function (e) {
-    console.log('[ServiceWorker] Activate');
     e.waitUntil(caches.keys().then(function (keyList) {
         return Promise.all(keyList.map(function (key) {
             if (key !== cacheName) {
-                console.log('[ServiceWorker] Removing old cache', key);
                 return caches.delete(key);
             }
         }));
@@ -50,7 +48,6 @@ self.addEventListener('activate', function (e) {
     return self.clients.claim();
 });
 self.addEventListener('fetch', function (e) {
-    console.log('[ServiceWorker] Fetch', e.request.url);
     caches.match(e.request).then(function(cachedResponse) {
       return cachedResponse || fetch(e.request);
     })

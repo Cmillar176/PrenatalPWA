@@ -4,6 +4,11 @@
         "/Users/cailinmillar/Documents/Dev/PrenatalPWA/build/unbundled/bower_components/webcomponentsjs/webcomponents-lite.min.js",
         "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/webcomponents.min.js",
         "/Users/cailinmillar/Documents/Dev/PrenatalPWA/build/bundled/bower_components/webcomponentsjs/webcomponents-lite.min.js",
-        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/build/unbundled/bower_components/firebase/firebase-app.js"
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/build/unbundled/bower_components/firebase/firebase-app.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/CustomElements.min.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/HTMLImports.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/HTMLImports.min.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/MutationObserver.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/MutationObserver.min.js"
     ]
 }

@@ -9,11 +9,10 @@
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
-<link rel="import" href="../bower_components/iron-iconset-svg/iron-iconset-svg.html">
-<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
 <link rel="manifest" href="/manifest.json">
+<link rel="import" href="../bower_components/iron-iconset-svg/iron-iconset-svg.html">
 <link rel="import" href="my-icons.html">
-<dom-module id="my-notes">
+<dom-module id="patient-note">
     <template>
         <style>
             paper-card {
@@ -80,11 +79,6 @@
 */
             }
         </style>
-        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
-        <!--        Lets us talk to firebase DB-->
-        <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
-        <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
-        <template is="dom-repeat" items="[[persistedNotes]]" as="note">
             <paper-card>
                 <p class="date">Appointment date: [[note.appointmentDate]]</p>
                 <p class="gestationWeeks">Gestation weeks: [[note.gestationWeeks]]</p>
@@ -95,27 +89,29 @@
                 <p class="bloodPressure">Blood pressure: [[note.bloodPressure]]</p>
                 <p class="content">Appointment details: [[note.content]]</p>
                 <paper-button raised on-tap="_directToEdit">Edit</paper-button>
-                <paper-button raised on-tap="_directToView">View note</paper-button>
                 <paper-button note="[[note]]" on-tap="delete">Delete</paper-button>
                 <paper-button raised id="private" on-tap="private">Mark as private</paper-button>
             </paper-card>
-        </template>
     </template>
     <script>
         Polymer({
-            is: 'my-notes'
-            , delete: function (e) {
-                var key = e.currentTarget.note.$key;
-                this.$.query.ref.child(key).remove();
-            }
-            , _directToEdit: function (e) {
-                var id = e.model.note.$key;
-                window.location.href = "/edit-note/" + id;
-            }
-            
-            , _directToView: function (e) {
-                var id = e.model.note.$key;
-                window.location.href = "/view-note/" + id;
+            is: 'patient-note'
+            , properties: {
+                note: {
+                    type: Object
+                    , value: function () {
+                        return {
+                            content: ""
+                            , healthDiscussed: false
+                            , movementDiscussed: false
+                            , movementFelt: false
+                            , bloodPressure: ""
+                            , gestationWeeks: ""
+                            , gestationDays: ""
+                            , appointmentDate: ""
+                        }
+                    }
+                }
             }
         });
     </script>

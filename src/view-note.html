@@ -1,0 +1,20 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="my-icons.html">
+<link rel="import" href="patient-note.html">
+<dom-module id="view-note">
+    <template>
+        <patient-note note="{{noteData}}"> </patient-note>
+        <app-route route="{{route}}" pattern="/:id" data="{{noteData}}"></app-route>
+        <firebase-document id="document" app-name='PrenatalPWA' path="/users/{{user.uid}}/notes/{{noteData.id}}" data="{{noteData}}"> </firebase-document>
+        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
+    </template>
+    <script>
+        Polymer({
+            is: 'view-note'
+            
+        });
+    </script>
+</dom-module>

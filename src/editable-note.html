@@ -101,7 +101,8 @@
                 <paper-input id="input" label="Add appointment details" value="{{note.content}}"></paper-input>
             </div>
             <div id="notes-controls">
-                    <paper-button raised id="save" on-tap="save">Save</paper-button>
+                <paper-button raised id="save" on-tap="save">Save</paper-button>
+                <paper-button raised id="cancel" on-tap="cancel">Cancel</paper-button>
             </div>
         </paper-card>
     </template>
@@ -126,10 +127,14 @@
                 }
             }
             , save: function () {
-                this.fire('save-note',{note:this.note});
+                this.fire('save-note', {
+                    note: this.note
+                });
+            }
+            , cancel: function () {
+                location.href = "/my-notes"
             }
         });
-        
         new Polymer.IronMeta({
             type: 'validator'
             , key: 'this-year-validator'
