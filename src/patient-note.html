@@ -88,8 +88,8 @@
             <p class="healthDiscussed">Mental health and wellbeing discussed: [[note.healthDiscussed]]</p>
             <p class="bloodPressure">Blood pressure: [[note.bloodPressure]]</p>
             <p class="content">Appointment details: [[note.content]]</p>
-            <paper-button raised on-tap="_directToEdit">Edit</paper-button>
-            <paper-button note="[[note]]" on-tap="delete">Delete</paper-button>
+            <paper-button raised on-tap="edit">Edit</paper-button>
+            <paper-button note="[[note]]" on-tap="test">Delete</paper-button>
             <paper-button raised id="private" on-tap="private">Mark as private</paper-button>
         </paper-card>
     </template>
@@ -113,9 +113,10 @@
                     }
                 }
             }
-            , _directToEdit: function (e) {
-                var id = e.model.note.$key;
-                window.location.href = "/edit-note/" + id;
+            , edit: function () {
+                this.fire('edit-note', {
+                    note: this.note
+                });
             }
         });
     </script>

@@ -25,10 +25,7 @@
                 'save-note': '_addNote'
             }
             , _addNote: function (event) {
-                debugger;
-                //pushing content object
                 this.$.query.ref.push(event.detail.note);
-                //navigate to list now its saved.
                 location.href = "my-notes"
             }
         });

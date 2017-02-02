@@ -3,10 +3,19 @@
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-document.html">
-<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="editable-note.html">
 <dom-module id="edit-note">
     <template>
+        <style>
+            #spinnerContainer > paper-spinner {
+                left: 50%;
+                padding-top: 30px;
+            }
+        </style>
+        <div id="spinnerContainer">
+            <paper-spinner id="spinner" alt="Loading notes" active></paper-spinner>
+        </div>
         <editable-note note='{{noteData}}'> </editable-note>
         <app-route route="{{route}}" pattern="/:id" data="{{editNoteData}}"></app-route>
         <firebase-document id="document" app-name='PrenatalPWA' path="/users/{{user.uid}}/notes/{{editNoteData.id}}" data="{{noteData}}"> </firebase-document>
@@ -26,11 +35,17 @@
             , listeners: {
                 'save-note': 'updateNote'
             }
+            , observers: [
+                'loadingComplete(noteData.*)'
+                ]
             , updateNote: function (event) {
                 this.set('note', event.detail.note)
                 this.$.document.transactionsComplete.then(() => {
                     location.href = "/my-notes"
                 });
+            }
+            , loadingComplete: function (changes) {
+                this.$.spinner.active = false;
             }
         });
     </script>

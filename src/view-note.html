@@ -2,18 +2,49 @@
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-document.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="my-icons.html">
 <link rel="import" href="patient-note.html">
 <dom-module id="view-note">
     <template>
+        <style>
+            #spinnerContainer > paper-spinner {
+                left: 50%;
+                padding-top: 30px;
+            }
+        </style>
+        <div id="spinnerContainer">
+            <paper-spinner id="spinner" alt="Loading notes" active></paper-spinner>
+        </div>
         <patient-note note="{{noteData}}"> </patient-note>
-        <app-route route="{{route}}" pattern="/:id" data="{{noteData}}"></app-route>
-        <firebase-document id="document" app-name='PrenatalPWA' path="/users/{{user.uid}}/notes/{{noteData.id}}" data="{{noteData}}"> </firebase-document>
+        <app-route route="{{route}}" pattern="/:id" data="{{viewNoteData}}"></app-route>
+        <firebase-document id="document" app-name='PrenatalPWA' path="/users/{{user.uid}}/notes/{{viewNoteData.id}}" data="{{noteData}}"> </firebase-document>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
     </template>
     <script>
         Polymer({
             is: 'view-note'
+            , properties: {
+                noteData: {
+                    type: Object
+                }
+                , viewNoteData: {
+                    type: Object
+                }
+            }
+            , listeners: {
+                'edit-note': '_directToEdit'
+            }
+            , observers: [
+                'loadingComplete(noteData.*)'
+                ]
+            , _directToEdit: function (e) {
+                var id = this.viewNoteData.id;
+                window.location.href = "/edit-note/" + id;
+            }
+            , loadingComplete: function (changes) {
+                this.$.spinner.active = false;
+            }
         });
     </script>
 </dom-module>
