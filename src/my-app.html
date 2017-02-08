@@ -90,11 +90,10 @@
                     <a name="my-appointments" href="/my-appointments">My Appointments</a> 
                     <a name="my-notes" href="/my-notes">My Notes</a> 
                     <a name="my-details" href="/my-details">My Details</a>
-<!--                    <a name="edit-note" href="/edit-note/....">My Details</a>-->
                 </iron-selector>
             </app-drawer>
             <!-- Main content -->
-            <app-header-layout has-scrolling-region>
+            <app-header-layout fullbleed >
                 <app-header condenses reveals effects="waterfall">
                     <app-toolbar>
                         <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
@@ -122,7 +121,9 @@
         Polymer({
             is: 'my-app'
             , signIn: function () {
-                this.$.auth.signInWithPopup();
+                email = "cailin_millar@hotmail.co.uk";
+                password = "test123";
+                this.$.auth.signInWithEmailAndPassword(email, password);
             }
             , signOut: function () {
                 this.$.auth.signOut();

@@ -16,10 +16,10 @@
         <div id="spinnerContainer">
             <paper-spinner id="spinner" alt="Loading notes" active></paper-spinner>
         </div>
-        <editable-note note='{{noteData}}'> </editable-note>
-        <app-route route="{{route}}" pattern="/:id" data="{{editNoteData}}"></app-route>
+        <editable-note note='[[_cloneNote(noteData)]]'> </editable-note>
+        <app-route id="approute" route="{{route}}" pattern="/:id" data="{{editNoteData}}"></app-route>
         <firebase-document id="document" app-name='PrenatalPWA' path="/users/{{user.uid}}/notes/{{editNoteData.id}}" data="{{noteData}}"> </firebase-document>
-        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
+        <firebase-auth id="auth" app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
     </template>
     <script>
         Polymer({
@@ -39,13 +39,17 @@
                 'loadingComplete(noteData.*)'
                 ]
             , updateNote: function (event) {
-                this.set('note', event.detail.note)
+                this.set('noteData', event.detail.note)
+//                this.$.document.save(this.$.document.path);
                 this.$.document.transactionsComplete.then(() => {
                     location.href = "/my-notes"
                 });
             }
             , loadingComplete: function (changes) {
                 this.$.spinner.active = false;
+            },
+            _cloneNote:function(note){
+                return Object.assign({},note);
             }
         });
     </script>
