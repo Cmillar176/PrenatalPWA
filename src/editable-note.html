@@ -126,13 +126,14 @@
                     }
                 }
             }
+            
+            , cancel: function() {
+                this.fire('cancel-note');
+            }
             , save: function () {
                 this.fire('save-note', {
                     note: this.note
                 });
-            }
-            , cancel: function () {
-                location.href = "/my-notes"
             }
         });
         new Polymer.IronMeta({

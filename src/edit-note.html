@@ -34,22 +34,27 @@
             }
             , listeners: {
                 'save-note': 'updateNote'
+                , 'cancel-note': 'cancelChange'
             }
             , observers: [
                 'loadingComplete(noteData.*)'
                 ]
             , updateNote: function (event) {
                 this.set('noteData', event.detail.note)
-//                this.$.document.save(this.$.document.path);
                 this.$.document.transactionsComplete.then(() => {
-                    location.href = "/my-notes"
+                    window.history.pushState({}, null, '/my-notes');
+                    window.dispatchEvent(new CustomEvent('location-changed'));
                 });
+            }
+            , cancelChange: function () {
+                window.history.pushState({}, null, '/my-notes');
+                window.dispatchEvent(new CustomEvent('location-changed'));
             }
             , loadingComplete: function (changes) {
                 this.$.spinner.active = false;
-            },
-            _cloneNote:function(note){
-                return Object.assign({},note);
+            }
+            , _cloneNote: function (note) {
+                return Object.assign({}, note);
             }
         });
     </script>

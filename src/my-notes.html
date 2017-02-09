@@ -102,7 +102,8 @@
             }
             , _directToView: function (e) {
                 var id = e.model.note.$key;
-                window.location.href = "/view-note/" + id;
+                window.history.pushState({}, null, '/view-note/' + id);
+                window.dispatchEvent(new CustomEvent('location-changed'));
             }
         });
     </script>

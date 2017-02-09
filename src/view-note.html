@@ -40,7 +40,8 @@
                 ]
             , _directToEdit: function (e) {
                 var id = this.viewNoteData.id;
-                window.location.href = "/edit-note/" + id;
+                window.history.pushState({}, null, '/edit-note/' + id);
+                window.dispatchEvent(new CustomEvent('location-changed'));
             }
             , loadingComplete: function (changes) {
                 this.$.spinner.active = false;
