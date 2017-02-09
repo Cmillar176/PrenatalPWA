@@ -5,7 +5,7 @@
 <dom-module id="splash-page">
     <template>
         <style>
-            :host {
+        :host {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -24,13 +24,22 @@
                 pointer-events: none;
             }
             
-            paper-button > * {
-                vertical-align: middle;
-                text-transform: none;
+            :root {
+                --paper-input-container-color: white;
+                --paper-input-container-focus-color: #bf80ff;
+                --paper-input-container-input-color: white;
             }
             
+            #signin-form > paper-button {
+                margin-top: 25px;
+            }
+        }
+        paper-button > * {
+            vertical-align: middle;
+            text-transform: none;
+        }
         </style>
-        <div id="sign-in">
+        <div id="signin-form">
             <paper-input id="email" label="Email"></paper-input>
             <paper-input id="password" label="Password" type="password"></paper-input>
             <paper-button on-tap="signIn" disabled="[[disabled]]">
