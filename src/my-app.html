@@ -75,25 +75,16 @@
             }
         </style>
         <app-location route="{{route}}"></app-location>
-        <app-route route="{{route}}" 
-                   pattern="/:page" 
-                   data="{{routeData}}" 
-                   tail="{{subroute}}"></app-route>
+        <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
         <splash-page on-sign-in="signIn" signed-in="[[signedIn]]"> </splash-page>
         <app-drawer-layout fullbleed>
             <!--Drawer content -->
             <app-drawer>
                 <app-toolbar>Menu </app-toolbar>
-                <iron-selector attr-for-selected="name" 
-                               class="drawer-list" role="navigation"> 
-                    <a name="add-files" href="/add-files">Add Files</a> 
-                    <a name="my-appointments" href="/my-appointments">My Appointments</a> 
-                    <a name="my-notes" href="/my-notes">My Notes</a> 
-                    <a name="my-details" href="/my-details">My Details</a>
-                </iron-selector>
+                <iron-selector attr-for-selected="name" class="drawer-list" role="navigation"> <a name="add-files" href="/add-files">Add Files</a> <a name="my-appointments" href="/my-appointments">My Appointments</a> <a name="my-notes" href="/my-notes">My Notes</a> <a name="my-details" href="/my-details">My Details</a> </iron-selector>
             </app-drawer>
             <!-- Main content -->
-            <app-header-layout fullbleed >
+            <app-header-layout fullbleed>
                 <app-header condenses reveals effects="waterfall">
                     <app-toolbar>
                         <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
@@ -112,7 +103,6 @@
                     <my-details name="my-details"></my-details>
                     <view-note name="view-note" route='[[subroute]]'></view-note>
                 </iron-pages>
-                
             </app-header-layout>
         </app-drawer-layout>
         <firebase-auth id="auth" app-name="PrenatalPWA" provider="google" signed-in="{{signedIn}}" user="{{user}}"> </firebase-auth>
@@ -120,11 +110,7 @@
     <script>
         Polymer({
             is: 'my-app'
-            , signIn: function () {
-                email = "cailin_millar@hotmail.co.uk";
-                password = "test123";
-                this.$.auth.signInWithEmailAndPassword(email, password);
-            }
+            
             , signOut: function () {
                 this.$.auth.signOut();
             }
@@ -134,6 +120,10 @@
                     , reflectToAttribute: true
                     , observer: '_pageChanged'
                     , behaviors: [Polymer.NoteAppBehavior]
+                }
+                , online: {
+                    type: Boolean
+                    , value: true
                 }
             }
             , observers: [

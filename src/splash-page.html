@@ -2,6 +2,7 @@
 <link rel="import" href="/bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <dom-module id="splash-page">
     <template>
         <style>
@@ -26,12 +27,17 @@
             
             :root {
                 --paper-input-container-color: white;
+                --paper-input-error: red;
                 --paper-input-container-focus-color: #bf80ff;
                 --paper-input-container-input-color: white;
             }
             
             #signin-form > paper-button {
                 margin-top: 25px;
+            }
+            
+            #signin-form {
+                width: 222px;
             }
         }
         paper-button > * {
@@ -45,6 +51,7 @@
             <paper-button on-tap="signIn" disabled="[[disabled]]">
                 <iron-icon icon="account-circle"></iron-icon> <span>Sign in</span> </paper-button>
         </div>
+        <firebase-auth id="auth" app-name="PrenatalPWA" provider="google" signed-in="{{signedIn}}" user="{{user}}"> </firebase-auth>
     </template>
     <script>
         Polymer({
@@ -60,9 +67,20 @@
                     , reflectToAttribute: true
                     , value: false
                 }
+                , online: {
+                    type: Boolean
+                    , value: true
+                }
             }
             , signIn: function () {
-                this.fire('sign-in', null);
+                email = "cailin_millar@hotmail.co.uk";
+                password = "test123";
+                if ((this.$.email.value == email) && (this.$.password.value == password)) {
+                    this.$.auth.signInWithEmailAndPassword(email, password);
+                }
+                else {
+                    alert('Please insert correct email address or password');
+                }
             }
             , signOut: function () {
                 this.fire('sign-out', null);
