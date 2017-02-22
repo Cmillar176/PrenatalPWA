@@ -27,7 +27,6 @@
             
             :root {
                 --paper-input-container-color: white;
-                --paper-input-error: red;
                 --paper-input-container-focus-color: #bf80ff;
                 --paper-input-container-input-color: white;
             }
@@ -44,19 +43,35 @@
             vertical-align: middle;
             text-transform: none;
         }
+        #error {
+            color: #F44336;
+            background-color: white;
+            position: absolute;
+            padding: 2px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        #email {
+            margin-top: 25px;
+        }
         </style>
         <div id="signin-form">
+            <div id="error" hidden$={{isValid}}>Please insert correct email and password</div>
             <paper-input id="email" label="Email"></paper-input>
             <paper-input id="password" label="Password" type="password"></paper-input>
             <paper-button on-tap="signIn" disabled="[[disabled]]">
                 <iron-icon icon="account-circle"></iron-icon> <span>Sign in</span> </paper-button>
         </div>
-        <firebase-auth id="auth" app-name="PrenatalPWA" provider="google" signed-in="{{signedIn}}" user="{{user}}"> </firebase-auth>
+        <firebase-auth id="auth" on-error="handleError" app-name="PrenatalPWA" provider="google" online="{{online}}" signed-in="{{signedIn}}" user="{{user}}"> </firebase-auth>
     </template>
     <script>
         Polymer({
             is: 'splash-page'
             , properties: {
+                //computed boolean
+                //for offline or signing in
+                //make disabled property a computed boolean and pass online in here
+                //computed function that returns a variable
                 disabled: {
                     type: Boolean
                     , reflectToAttribute: true
@@ -71,19 +86,26 @@
                     type: Boolean
                     , value: true
                 }
+                , isValid: {
+                    type: Boolean
+                    , value: true
+                }
             }
             , signIn: function () {
-                email = "cailin_millar@hotmail.co.uk";
-                password = "test123";
-                if ((this.$.email.value == email) && (this.$.password.value == password)) {
-                    this.$.auth.signInWithEmailAndPassword(email, password);
-                }
-                else {
-                    alert('Please insert correct email address or password');
-                }
+                this.$.auth.signInWithEmailAndPassword(this.$.email.value, this.$.password.value).then(function (value) {
+                    this.isValid = true;
+                    this.$.email.value = null;
+                    this.$.password.value = null;
+                }).catch(function (error) {
+                    this.isValid = false;
+                });
             }
             , signOut: function () {
                 this.fire('sign-out', null);
+            }
+            , handleError: function () {
+                this.isValid = false;
+                console.log("bad test");
             }
         });
     </script>
