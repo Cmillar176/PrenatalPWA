@@ -10,8 +10,9 @@
     "src/view-note.html"
   ],
   "sourceGlobs": [
-   "images/**/*",
-   "bower.json"
+    "src/**/*",
+    "images/**/*",
+    "bower.json"
   ],
   "includeDependencies": [
     "manifest.json",

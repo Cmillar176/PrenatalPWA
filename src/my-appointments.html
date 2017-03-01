@@ -1,15 +1,13 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="manifest" href="/manifest.json">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../src/my-icons.html">
+<link rel="import" href="my-icons.html">
 
 <dom-module id="my-appointments">
-  <template>
-      <style>
-            
+    <template>
+        <style>
             paper-card {
                 width: 600px;
                 margin-top: 40px;
@@ -20,43 +18,43 @@
                 z-index: 30px;
                 font-size: 12px;
             }
-          
+            
             paper-button {
                 background-color: #9575CD;
-                color: white 
+                color: white
             }
             
             #notes-controls {
                 padding-top: 20px;
             }
-          
-          #current {
-           font-size: 16px;   
-          }
-          
+            
+            #current {
+                font-size: 16px;
+            }
+            
             --paper-card-header-color: #9575CD;
         </style>
-      
-      <paper-card id="current" heading="Current Appointments">
+
+        <paper-card id="current" heading="Current Appointments">
 
             <div id="card">
                 <div id="current-appointments">
                 </div>
             </div>
         </paper-card>
-      
-      <paper-card heading="Previous Appointments">
+
+        <paper-card heading="Previous Appointments">
 
             <div id="card">
                 <div id="previous-appointments">
                 </div>
             </div>
         </paper-card>
-  </template>
+    </template>
 
-  <script>
-    Polymer({
-      is: 'my-appointments'
-    });
-  </script>
+    <script>
+        Polymer({
+            is: 'my-appointments'
+        });
+    </script>
 </dom-module>
