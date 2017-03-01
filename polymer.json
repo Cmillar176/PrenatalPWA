@@ -2,17 +2,14 @@
   "entrypoint": "index.html",
   "shell": "src/my-app.html",
   "fragments": [
-    "src/my-notes.html",
+    "src/add-files.html",
+    "src/add-note.html",
+    "src/edit-note.html",
     "src/my-appointments.html",
     "src/my-details.html",
-    "src/splash-page.html",
-    "src/my-view404.html",
-    "src/landing-page.html"
-      
-      
+    "src/view-note.html"
   ],
   "sourceGlobs": [
-   "src/**/*",
    "images/**/*",
    "bower.json"
   ],
