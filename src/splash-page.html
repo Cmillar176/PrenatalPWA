@@ -6,7 +6,7 @@
 <dom-module id="splash-page">
     <template>
         <style>
-        :host {
+            :host {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -38,22 +38,24 @@
             #signin-form {
                 width: 222px;
             }
-        }
-        paper-button > * {
-            vertical-align: middle;
-            text-transform: none;
-        }
-        #error {
-            color: #F44336;
-            background-color: white;
-            position: absolute;
-            padding: 2px;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-        #email {
-            margin-top: 25px;
-        }
+            
+            paper-button > * {
+                vertical-align: middle;
+                text-transform: none;
+            }
+            
+            #error {
+                color: #F44336;
+                background-color: white;
+                position: absolute;
+                padding: 2px;
+                border-radius: 10px;
+                font-size: 14px;
+            }
+            
+            #email {
+                margin-top: 25px;
+            }
         </style>
         <div id="signin-form">
             <div id="error" hidden$={{isValid}}>Please insert correct email and password</div>
