@@ -41,7 +41,7 @@
                 ]
             , updateNote: function (event) {
                 this.set('noteData', event.detail.note)
-                this.$.document.transactionsComplete.then(() => {
+                this.$.document.transactionsComplete.then(function() {
                     window.history.pushState({}, null, '/my-notes');
                     window.dispatchEvent(new CustomEvent('location-changed'));
                 });

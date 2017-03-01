@@ -9,6 +9,15 @@
         "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/HTMLImports.js",
         "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/HTMLImports.min.js",
         "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/MutationObserver.js",
-        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/MutationObserver.min.js"
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/MutationObserver.min.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/web-component-tester/data/a11ySuite.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/ShadowDOM.min.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/webcomponents-lite.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/CustomElements.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/webcomponentsjs/webcomponents.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/sw-precache-config.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/build/bundled/bower_components/firebase/firebase-app.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/build/bundled/bower_components/firebase/firebase-auth.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/web-component-tester/browser.js"
     ]
 }
