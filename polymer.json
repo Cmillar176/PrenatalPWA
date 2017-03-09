@@ -1,22 +1,24 @@
 {
-  "entrypoint": "index.html",
-  "shell": "src/my-app.html",
-  "fragments": [
-    "src/add-files.html",
-    "src/add-note.html",
-    "src/edit-note.html",
-    "src/my-appointments.html",
-    "src/my-details.html",
-    "src/view-note.html",
-    "src/my-notes.html"
-  ],
-  "sourceGlobs": [
-    "src/**/*",
-    "images/**/*",
-    "bower.json"
-  ],
-  "includeDependencies": [
-    "manifest.json",
-    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+    "entrypoint": "index.html"
+    , "shell": "src/my-app.html"
+    , "fragments": [
+    "src/add-files.html"
+    , "src/add-note.html"
+    , "src/edit-note.html"
+    , "src/my-appointments.html"
+    , "src/my-details.html"
+    , "src/view-note.html"
+    , "src/my-notes.html"
+  ]
+    , "sourceGlobs": [
+    "src/**/*"
+    , "images/**/*"
+    , "bower.json"
+    , "bower_components//app-storage/app-indexeddb-mirror/*.js"
+
+  ]
+    , "includeDependencies": [
+    "manifest.json"
+    , "bower_components/webcomponentsjs/webcomponents-lite.min.js"
   ]
 }
