@@ -1,0 +1,26 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="create-patient-form.html">
+<dom-module id="add-patient">
+    <template>
+        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
+        <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/details" data="{{details}}"> </firebase-query>
+        <create-patient-form></create-patient-form>
+    </template>
+    <script>
+        Polymer({
+            is: 'add-patient'
+            , listeners: {
+                'save-details': '_addDetails'
+                , 'reset-details': 'resetDetails'
+            }
+            , _addDetails: function (event) {
+                this.$.query.ref.push(event.detail.details);
+                location.href = "my-details"
+            }
+            , resetDetails: function () {
+            }
+        });
+    </script>
+</dom-module>

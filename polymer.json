@@ -9,6 +9,7 @@
     , "src/my-details.html"
     , "src/view-note.html"
     , "src/my-notes.html"
+    , "src/add-patient.html"
   ]
     , "sourceGlobs": [
     "src/**/*"

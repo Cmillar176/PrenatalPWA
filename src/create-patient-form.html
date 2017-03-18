@@ -1,0 +1,84 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
+<dom-module id="create-patient-form">
+    <template>
+        <style>
+            paper-card {
+                width: 400px;
+                margin-top: 40px;
+                margin-left: 40px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+                z-index: 30px;
+            }
+            
+            paper-input {
+                width: 250px;
+            }
+            
+            vaadin-date-picker {
+                width: 150px;
+            }
+            
+            paper-button {
+                background-color: #9575CD;
+                color: white;
+                font-size: 12px;
+            }
+            
+        </style>
+        <paper-card class="patient-details">
+            <div id="details">
+                <paper-input id="firstName" label="First name"></paper-input>
+                <paper-input id="lastName" label="Last name"></paper-input>
+                <paper-input id="email" label="Email address"></paper-input>
+            </div>
+            <div id="details-controls">
+                <paper-button raised id="save" on-tap="save">Save</paper-button>
+                <paper-button raised id="reset" on-tap="reset">Reset</paper-button>
+            </div>
+        </paper-card>
+    </template>
+    <script>
+        Polymer({
+            is: 'create-patient-form'
+            , properties: {
+                details: {
+                    type: Object
+                    , value: function () {
+                        return {
+                            firstName: ""
+                            , lastName: ""
+                            , birthDate: ""
+                            , email: ""
+                        }
+                    }
+                }
+            }
+            , reset: function () {
+                this.fire('reset-details');
+            }
+            , save: function () {
+                this.fire('save-details', {
+                    details: this.details
+                });
+            }
+        });
+        new Polymer.IronMeta({
+            type: 'validator'
+            , key: 'this-year-validator'
+            , value: {
+                validate: function (value) {
+                    var currentYear = new Date().getFullYear();
+                    return new Date(value).getFullYear() === currentYear;
+                }
+            }
+        });
+    </script>
+</dom-module>
