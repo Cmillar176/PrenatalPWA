@@ -1,0 +1,36 @@
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<dom-module id="permissions-check">
+    <template>
+        <firebase-auth id="auth" app-name="PrenatalPWA" user="{{user}}"> </firebase-auth>
+    </template>
+    <script>
+        Polymer({
+            is: 'permissions-check'
+            , properties: {
+                user: {
+                    type: Object
+                }
+                , isAdmin: {
+                    type: Boolean
+                    , computed: '_checkAdmin(user)'
+                    , notify: true
+                }
+                , isHCP: {
+                    type: Boolean
+                    , computed: '_checkHCP(user)'
+                    , notify: true
+                }
+            }
+            , _checkAdmin: function (user) {
+                console.log(user);
+                console.log('checking admin');
+                return true;
+            }
+            , _checkHCP: function (user) {
+                console.log(user);
+                console.log('checking admin');
+                return false;
+            }
+        });
+    </script>
+</dom-module>

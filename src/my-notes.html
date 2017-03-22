@@ -3,6 +3,8 @@
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
 <link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <dom-module id="my-notes">
     <template>
@@ -21,6 +23,10 @@
                 background-color: #9575CD;
                 color: white;
                 font-size: 12px;
+            }
+            
+            paper-button:hover {
+                background-color: #B39DDB;
             }
             
             #private {
@@ -64,25 +70,39 @@
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
         <template is="dom-repeat" items="[[persistedNotes]]" as="note">
+            <paper-dialog id="confirmDeleteModal" opened="{{modalOpened}}" modal>
+                <p>Are you sure you want to delete this note?</p>
+                <div class="buttons">
+                    <paper-button dialog-confirm autofocus>Cancel</paper-button>
+                    <paper-button note="[[note]]" on-tap="confirmDelete">>Delete</paper-button>
+                </div>
+            </paper-dialog>
             <paper-card>
                 <p class="date">Appointment date: [[note.appointmentDate]]</p>
                 <p class="content">Appointment details: [[note.content]]</p>
                 <paper-button raised on-tap="_directToView">View note</paper-button>
-                <paper-button note="[[note]]" on-tap="delete">Delete</paper-button>
+                <paper-button on-tap="openModal">Delete</paper-button>
             </paper-card>
         </template>
     </template>
     <script>
         Polymer({
             is: 'my-notes'
-            , delete: function (e) {
-                var key = e.currentTarget.note.$key;
-                this.$.query.ref.child(key).remove();
+                ,properties:{
+                    modalOpened: Boolean
+                    
+                }
+            , openModal: function (e) {
+                this.modalOpened = true;
             }
             , _directToView: function (e) {
                 var id = e.model.note.$key;
                 window.history.pushState({}, null, '/view-note/' + id);
                 window.dispatchEvent(new CustomEvent('location-changed'));
+            }
+            , confirmDelete: function (e) {
+                var key = e.currentTarget.note.$key;
+                this.$.query.ref.child(key).remove();
             }
         });
     </script>

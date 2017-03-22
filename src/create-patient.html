@@ -1,0 +1,33 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="create-patient-form.html">
+<link rel="import" href="permissions-check.html">
+<dom-module id="create-patient">
+    <template>
+        <firebase-auth id="auth" app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
+        <create-patient-form id="patient-form"></create-patient-form>
+        <!--        ADD CREATE HCP FORM HERE-->
+        <permissions-check id="permission-check" ishcp="{{HCP}}" isAdmin="{{Admin}}" user="{{user}}"></permissions-check>
+    </template>
+    <script>
+        Polymer({
+            is: 'create-patient'
+            , listeners: {
+                'add-patient': '_addPatient'
+                , 'reset-create-form': '_resetCreateForm'
+                , 'hide-form': '_hideForm'
+            }
+            , _addPatient: function (event) {
+                this.$.auth.createUserWithEmailAndPassword(event.detail.patient.email, event.detail.patient.password).then(function () {
+                    console.log("User created")
+                }).catch(function (error) {
+                    console.log("Error creating patient");
+                });
+            }
+            , _hideForm: function () {
+                document.getElementById('patient-form').visibility = 'hidden';
+            }
+        });
+    </script>
+</dom-module>

@@ -31,16 +31,16 @@
                 color: white;
                 font-size: 12px;
             }
-            
         </style>
         <paper-card class="patient-details">
             <div id="details">
-                <paper-input id="firstName" label="First name"></paper-input>
-                <paper-input id="lastName" label="Last name"></paper-input>
-                <paper-input id="email" label="Email address"></paper-input>
+                <paper-input id="firstName" label="First name" value={{patient.firstName}}></paper-input>
+                <paper-input id="lastName" label="Last name" value={{patient.lastName}}></paper-input>
+                <paper-input id="password" label="Password" type="password" value={{patient.password}}></paper-input>
+                <paper-input id="email" label="Email address" value={{patient.email}}></paper-input>
             </div>
             <div id="details-controls">
-                <paper-button raised id="save" on-tap="save">Save</paper-button>
+                <paper-button raised id="create" on-tap="create">Create</paper-button>
                 <paper-button raised id="reset" on-tap="reset">Reset</paper-button>
             </div>
         </paper-card>
@@ -49,7 +49,7 @@
         Polymer({
             is: 'create-patient-form'
             , properties: {
-                details: {
+                patient: {
                     type: Object
                     , value: function () {
                         return {
@@ -61,12 +61,16 @@
                     }
                 }
             }
+            
             , reset: function () {
-                this.fire('reset-details');
+                this.$.firstName.value = null;
+                this.$.lastName.value = null;
+                this.$.email.value = null;
+                this.$.password.value = null;
             }
-            , save: function () {
-                this.fire('save-details', {
-                    details: this.details
+            , create: function () {
+                this.fire('add-patient', {
+                    patient: this.patient
                 });
             }
         });

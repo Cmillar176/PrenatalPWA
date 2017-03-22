@@ -26,28 +26,28 @@
                 padding-top: 20px;
             }
         </style>
-
         <paper-card heading="My Details">
-            <div id="card">
-                <div id="details">
-                    <paper-button raised onclick="openModal">Edit Details</paper-button>
-                    <paper-dialog id="editDetailsModal">
-                        <h2>Dialog Title</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                        <div class="edit-details-controls">
-                            <paper-button>Accept</paper-button>
-                            <paper-button dialog-dismiss>Cancel</paper-button>
-                        </div>
-                    </paper-dialog>
-                </div>
-            </div </paper-card>
+            <p class="firstName">First name: [[details.firstName]] </p>
+            <p class="lastName">Last name: [[details.lastName]]</p>
+            <p class="email">Email address: [[details.email]]</p>
+            <paper-button raised on-tap="edit">Edit</paper-button>
+        </paper-card>
     </template>
     <script>
+        
         Polymer({
-            is: 'my-details',
-
-            openModal: function () {
-
+            is: 'my-details'
+            , properties: {
+                note: {
+                    type: Object
+                    , value: function () {
+                        return {
+                            firstName: ""
+                            , lastName: ""
+                            , email: ""
+                        }
+                    }
+                }
             }
         });
     </script>
