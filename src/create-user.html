@@ -2,17 +2,19 @@
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="create-patient-form.html">
+<link rel="import" href="create-hcp-form.html">
 <link rel="import" href="permissions-check.html">
-<dom-module id="create-patient">
+<dom-module id="create-user">
     <template>
         <firebase-auth id="auth" app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <create-patient-form id="patient-form"></create-patient-form>
-        <!--        ADD CREATE HCP FORM HERE-->
+        <create-hcp-form id="hcp-form"></create-hcp-form>
+        
         <permissions-check id="permission-check" ishcp="{{HCP}}" isAdmin="{{Admin}}" user="{{user}}"></permissions-check>
     </template>
     <script>
         Polymer({
-            is: 'create-patient'
+            is: 'create-user'
             , listeners: {
                 'add-patient': '_addPatient'
                 , 'reset-create-form': '_resetCreateForm'

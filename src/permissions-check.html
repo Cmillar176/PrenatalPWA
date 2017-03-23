@@ -1,8 +1,8 @@
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <dom-module id="permissions-check">
-    <template>
-        <firebase-auth id="auth" app-name="PrenatalPWA" user="{{user}}"> </firebase-auth>
-    </template>
+    <firebase-auth id="auth" app-name="PrenatalPWA" user="{{user}}"> </firebase-auth>
+<!--    <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/" data="{{notes}}"> </firebase-query>-->
+<!--    <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>-->
     <script>
         Polymer({
             is: 'permissions-check'

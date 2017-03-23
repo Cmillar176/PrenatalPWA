@@ -81,7 +81,7 @@
                 <!--Drawer content -->
                 <app-drawer>
                     <app-toolbar>Menu </app-toolbar>
-                    <iron-selector attr-for-selected="name" class="drawer-list" role="navigation"> <a name="add-files" href="/add-files">Add Files</a> <a name="my-appointments" href="/my-appointments">My Appointments</a>                        <a name="my-notes" href="/my-notes">My Notes</a> <a name="my-details" href="/my-details">My Details</a>  <a name="create-patient" href="/create-patient"> Create patient</a>                      </iron-selector>
+                    <iron-selector attr-for-selected="name" class="drawer-list" role="navigation"> <a name="add-files" href="/add-files">Add Files</a> <a name="my-appointments" href="/my-appointments">My Appointments</a>                        <a name="my-notes" href="/my-notes">My Notes</a> <a name="my-details" href="/my-details">My Details</a>  <a name="create-user" href="/create-user"> Create User</a>                     </iron-selector>
                 </app-drawer>
                 <!-- Main content -->
                 <app-header-layout fullbleed>
@@ -100,13 +100,13 @@
                         <my-notes name="my-notes"> </my-notes>
                         <my-appointments name="my-appointments"></my-appointments>
                         <my-details name="my-details"></my-details>
-                        <create-patient name="create-patient"></create-patient>
+                        <create-user name="create-user"></create-user>
                         <view-note name="view-note" route='[[subroute]]'></view-note>
                     </iron-pages>
                 </app-header-layout>
             </app-drawer-layout>
 
-            <firebase-auth id="auth" app-name="PrenatalPWA" provider="google" signed-in="{{signedIn}}" user="{{user}}"> </firebase-auth>
+            <firebase-auth id="auth" app-name="PrenatalPWA" signed-in="{{signedIn}}" user="{{user}}"> </firebase-auth>
     </template>
     <script>
         Polymer({
