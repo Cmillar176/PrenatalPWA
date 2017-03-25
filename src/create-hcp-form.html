@@ -90,15 +90,5 @@
                 });
             }
         });
-        new Polymer.IronMeta({
-            type: 'validator'
-            , key: 'this-year-validator'
-            , value: {
-                validate: function (value) {
-                    var currentYear = new Date().getFullYear();
-                    return new Date(value).getFullYear() === currentYear;
-                }
-            }
-        });
     </script>
 </dom-module>

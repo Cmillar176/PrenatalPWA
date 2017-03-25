@@ -9,7 +9,6 @@
         <firebase-auth id="auth" app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <create-patient-form id="patient-form"></create-patient-form>
         <create-hcp-form id="hcp-form"></create-hcp-form>
-        
         <permissions-check id="permission-check" ishcp="{{HCP}}" isAdmin="{{Admin}}" user="{{user}}"></permissions-check>
     </template>
     <script>
@@ -17,6 +16,7 @@
             is: 'create-user'
             , listeners: {
                 'add-patient': '_addPatient'
+                , 'add-hcp': '_addHcp'
                 , 'reset-create-form': '_resetCreateForm'
                 , 'hide-form': '_hideForm'
             }
@@ -25,6 +25,13 @@
                     console.log("User created")
                 }).catch(function (error) {
                     console.log("Error creating patient");
+                });
+            }
+            , _addHcp: function (event) {
+                this.auth.createUserWithEmailAndPassword(event.details.hcp.email, email.detail.hcp.password).then(function () {
+                    console.log("HCP created");
+                }).catch(function (error) {
+                    console.log("Error creating HCP");
                 });
             }
             , _hideForm: function () {

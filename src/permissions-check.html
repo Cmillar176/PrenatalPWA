@@ -1,8 +1,11 @@
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <dom-module id="permissions-check">
     <firebase-auth id="auth" app-name="PrenatalPWA" user="{{user}}"> </firebase-auth>
-<!--    <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/" data="{{notes}}"> </firebase-query>-->
-<!--    <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>-->
+    
+    <!--    Getting access to users UserId-->
+    <firebase-query id="adminQuery" app-name="PrenatalPWA" path="/admin/{{userid}}" data="{{}}"> </firebase-query>
+    <firebase-query id="hcpQuery" app-name="PrenatalPWA" path="/hcp/{userid}" data="{{}}"> </firebase-query>
     <script>
         Polymer({
             is: 'permissions-check'
@@ -21,15 +24,20 @@
                     , notify: true
                 }
             }
+            // Permission checks to ensure user has permission to access the create user forms
+            
             , _checkAdmin: function (user) {
                 console.log(user);
                 console.log('checking admin');
+              //  this.$.patientQuery.value();
                 return true;
             }
             , _checkHCP: function (user) {
                 console.log(user);
-                console.log('checking admin');
-                return false;
+                console.log('checking hcp');
+                // accessing value
+                this.$.hcpQuery.value();
+                return true;
             }
         });
     </script>

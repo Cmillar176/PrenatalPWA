@@ -15,6 +15,7 @@
         <div id="spinnerContainer">
             <paper-spinner id="spinner" alt="Loading notes" active></paper-spinner>
         </div>
+<!--        Adding patient note component-->
         <patient-note note="{{noteData}}"> </patient-note>
         <app-route route="{{route}}" pattern="/:id" data="{{viewNoteData}}"></app-route>
         <firebase-document id="document" app-name='PrenatalPWA' path="/users/{{user.uid}}/notes/{{viewNoteData.id}}" data="{{noteData}}">
