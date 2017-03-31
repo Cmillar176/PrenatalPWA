@@ -4,12 +4,17 @@
 <link rel="import" href="create-patient-form.html">
 <link rel="import" href="create-hcp-form.html">
 <link rel="import" href="permissions-check.html">
+<link rel="import" href="warning-form.html">
 <dom-module id="create-user">
     <template>
-        <firebase-auth id="auth" app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
-        <create-patient-form id="patient-form"></create-patient-form>
-        <create-hcp-form id="hcp-form"></create-hcp-form>
-        <permissions-check id="permission-check" ishcp="{{HCP}}" isAdmin="{{Admin}}" user="{{user}}"></permissions-check>
+        <firebase-auth id="auth" app-name="PrenatalPWA"></firebase-auth>
+        <!--        hidden if not admin and not a HCP-->
+        <create-patient-form id="patient-form" hidden="{{!isAdmin && !isHCP}}"></create-patient-form>
+        <!--        Hidden if not an admin -->
+        <create-hcp-form id="hcp-form" hidden="{{!isAdmin}}"></create-hcp-form>
+        <!--        Hidden if you are an admin or HCP-->
+        <warning-form id="warning-form" hidden="{{isAdmin || isHCP}}"></warning-form>
+        <permissions-check id="permission-check" is-hcp="{{isHCP}}" is-admin="{{isAdmin}}"></permissions-check>
     </template>
     <script>
         Polymer({
@@ -18,7 +23,6 @@
                 'add-patient': '_addPatient'
                 , 'add-hcp': '_addHcp'
                 , 'reset-create-form': '_resetCreateForm'
-                , 'hide-form': '_hideForm'
             }
             , _addPatient: function (event) {
                 this.$.auth.createUserWithEmailAndPassword(event.detail.patient.email, event.detail.patient.password).then(function () {
@@ -33,9 +37,6 @@
                 }).catch(function (error) {
                     console.log("Error creating HCP");
                 });
-            }
-            , _hideForm: function () {
-                document.getElementById('patient-form').visibility = 'hidden';
             }
         });
     </script>

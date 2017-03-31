@@ -1,0 +1,49 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<dom-module id="warning-form">
+    <template>
+        <style>
+            paper-card {
+                width: 400px;
+                margin-top: 40px;
+                margin-left: 40px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+                z-index: 30px;
+            }
+            
+            paper-card {
+                --paper-card-header: {
+                    background-color: #F44336;
+                    margin-top: 5px;
+                }
+                --paper-card-header-text: {
+                    color: white;
+                }
+            }
+            
+            paper-button {
+                background-color: #F44336;
+                color: white;
+                font-size: 12px;
+                font-weight: bold;
+                height: 40px;
+            }
+        </style>
+        <paper-card class="hcp-details" heading="Sorry!">
+            <div id="details">
+                <p>You don't have access to this page.</p>
+            </div>
+            <div id="warning-form-controls">
+                <paper-button raised id="redirect">Back to home</paper-button>
+            </div>
+        </paper-card>
+    </template>
+    <script>
+        Polymer({
+            is: 'warning-form'
+        });
+    </script>
+</dom-module>

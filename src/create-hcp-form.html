@@ -62,6 +62,7 @@
             </div>
         </paper-card>
     </template>
+    </template>
     <script>
         Polymer({
             is: 'create-hcp-form'
@@ -88,6 +89,10 @@
                 this.fire('add-hcp', {
                     hcp: this.hcp
                 });
+                this.$.firstName.value = null;
+                this.$.lastName.value = null;
+                this.$.email.value = null;
+                this.$.password.value = null;
             }
         });
     </script>

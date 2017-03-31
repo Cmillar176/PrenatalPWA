@@ -1,11 +1,12 @@
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
-<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
 <dom-module id="permissions-check">
-    <firebase-auth id="auth" app-name="PrenatalPWA" user="{{user}}"> </firebase-auth>
-    
-    <!--    Getting access to users UserId-->
-    <firebase-query id="adminQuery" app-name="PrenatalPWA" path="/admin/{{userid}}" data="{{}}"> </firebase-query>
-    <firebase-query id="hcpQuery" app-name="PrenatalPWA" path="/hcp/{userid}" data="{{}}"> </firebase-query>
+    <template>
+        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
+        <!--    Getting access to users UserId-->
+        <firebase-document id="adminQuery" app-name="PrenatalPWA" path="/admin/[[user.uid]]/active" data="{{isAdmin}}"> </firebase-document>
+        <firebase-document id="hcpQuery" app-name="PrenatalPWA" path="/HCP/[[user.uid]]/active" data="{{isHCP}}"></firebase-document>
+    </template>
     <script>
         Polymer({
             is: 'permissions-check'
@@ -15,30 +16,14 @@
                 }
                 , isAdmin: {
                     type: Boolean
-                    , computed: '_checkAdmin(user)'
                     , notify: true
                 }
                 , isHCP: {
                     type: Boolean
-                    , computed: '_checkHCP(user)'
                     , notify: true
                 }
-            }
-            // Permission checks to ensure user has permission to access the create user forms
-            
-            , _checkAdmin: function (user) {
-                console.log(user);
-                console.log('checking admin');
-              //  this.$.patientQuery.value();
-                return true;
-            }
-            , _checkHCP: function (user) {
-                console.log(user);
-                console.log('checking hcp');
-                // accessing value
-                this.$.hcpQuery.value();
-                return true;
-            }
+            },
         });
+        
     </script>
 </dom-module>

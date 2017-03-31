@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <dom-module id="add-files">
     <template>
         <style>
@@ -15,6 +16,16 @@
                 z-index: 30px;
             }
             
+             paper-card {
+                --paper-card-header: {
+                    background-color: #1DE9B6;
+                    margin-top: 5px;
+                }
+                --paper-card-header-text: {
+                    color: white;
+                }
+            }
+            
             paper-button {
                 background-color: #9575CD;
                 color: white;
@@ -22,10 +33,11 @@
                 left: 130px;
             }
         </style>
-        <paper-card>
+        <paper-card heading="Add patient note">
             <a href="/add-note">
                 <div>
                     <paper-button raised id="add-note"> Add Note</paper-button>
+                    <paper-fab icon="add"></paper-fab>
                 </div>
             </a>
         </paper-card>
