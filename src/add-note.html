@@ -13,13 +13,13 @@
             is: 'add-note'
             , listeners: {
                 'save-note': '_addNote'
-                , 'cancel-note': 'cancelChange'
+                , 'cancel-note': 'backToList'
             }
             , _addNote: function (event) {
                 this.$.query.ref.push(event.detail.note);
-                location.href = "my-notes"
+                this.backToList();
             }
-            , cancelChange: function () {
+            , backToList: function () {
                 window.history.pushState({}, null, '/my-notes');
                 window.dispatchEvent(new CustomEvent('location-changed'));
             }

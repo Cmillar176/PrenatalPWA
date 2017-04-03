@@ -64,18 +64,22 @@
             #gestationDays {
                 width: 110px;
             }
+            
+            #confirmDeleteModal {
+                box-shadow: none;
+            }
         </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
+        <paper-dialog id="confirmDeleteModal" opened="{{noteToDelete}}">
+            <p>Are you sure you want to delete this note?</p>
+            <div class="buttons">
+                <paper-button autofocus on-tap="closeModal">Cancel</paper-button>
+                <paper-button on-tap="confirmDelete">Delete</paper-button>
+            </div>
+        </paper-dialog>
         <template is="dom-repeat" items="[[persistedNotes]]" as="note">
-            <paper-dialog id="confirmDeleteModal" opened="{{modalOpened}}">
-                <p>Are you sure you want to delete this note?</p>
-                <div class="buttons">
-                    <paper-button dialog-confirm autofocus>Cancel</paper-button>
-                    <paper-button note="[[note]]" on-tap="confirmDelete">Delete</paper-button>
-                </div>
-            </paper-dialog>
             <paper-card>
                 <p class="date">Appointment date: [[note.appointmentDate]]</p>
                 <p class="content">Appointment details: [[note.content]]</p>
@@ -88,10 +92,17 @@
         Polymer({
             is: 'my-notes'
             , properties: {
-                modalOpened: Boolean
+                noteToDelete: {
+                    type: String
+                    , value: ""
+                }
             }
             , openModal: function (e) {
-                this.modalOpened = true
+                this.noteToDelete = e.model.note.$key;
+            }
+            
+            , closeModal: function () {
+                this.noteToDelete = "";
             }
             , _directToView: function (e) {
                 var id = e.model.note.$key;
@@ -99,9 +110,12 @@
                 window.dispatchEvent(new CustomEvent('location-changed'));
             }
             , confirmDelete: function (e) {
-                var key = e.currentTarget.note.$key;
-                this.$.query.ref.child(key).remove();
+                if (this.noteToDelete) {
+                    this.$.query.ref.child(this.noteToDelete).remove();
+                }
+                this.closeModal();
             }
+            
         });
     </script>
 </dom-module>

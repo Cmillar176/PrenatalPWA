@@ -18,6 +18,7 @@
         "/Users/cailinmillar/Documents/Dev/PrenatalPWA/sw-precache-config.js",
         "/Users/cailinmillar/Documents/Dev/PrenatalPWA/build/bundled/bower_components/firebase/firebase-app.js",
         "/Users/cailinmillar/Documents/Dev/PrenatalPWA/build/bundled/bower_components/firebase/firebase-auth.js",
-        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/web-component-tester/browser.js"
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/web-component-tester/browser.js",
+        "/Users/cailinmillar/Documents/Dev/PrenatalPWA/bower_components/stacky/lib/formatting.js"
     ]
 }

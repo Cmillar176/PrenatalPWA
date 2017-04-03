@@ -71,6 +71,12 @@
                 vertical-align: var(--paper-checkbox-vertical-align, middle);
 */
             }
+            
+            #errorDialog {
+                background-color: #EF5350;
+                color: white;
+                /*                position: none;*/
+            }
         </style>
         <paper-card class="details">
             <div id="appointment-details">
@@ -91,13 +97,18 @@
                 </div>
             </div>
             <div id="add-note">
-                <paper-input id="input" label="Add appointment details" value="{{note.content}}"></paper-input>
+                <paper-input id="input" label="Add appointment details" required auto-validate error-message="Insert details about the appointment!" value="{{note.content}}"></paper-input>
             </div>
             <div id="notes-controls">
                 <paper-button raised id="save" on-tap="save">Save</paper-button>
                 <paper-button raised id="cancel" on-tap="cancel">Cancel</paper-button>
             </div>
         </paper-card>
+        <!--        Dialof shows if a field has been left emppty-->
+        <paper-dialog id="errorDialog" opened="{{modalOpened}}">
+            <p>Fields cannot be left empty!</p>
+            <div class="buttons"> </div>
+        </paper-dialog>
     </template>
     <script>
         Polymer({
@@ -119,11 +130,17 @@
                     }
                 }
             }
-
+            , listeners: {
+                modalOpened: Boolean
+            }
             , cancel: function () {
                 this.fire('cancel-note');
             }
             , save: function () {
+//                if (this.$.appointmentDate.value === "" || this.$.gestationWeeks.value === "" || this.$.gestationDays.value === "" || this.$.bloodPressure.value === "") {
+//                    this.modalOpened = true
+//                    return;
+//                }
                 this.fire('save-note', {
                     note: this.note
                 });
