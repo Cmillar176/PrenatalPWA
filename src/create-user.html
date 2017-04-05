@@ -7,18 +7,30 @@
 <link rel="import" href="warning-form.html">
 <dom-module id="create-user">
     <template>
-        <permissions-check id="permission-check" is-hcp="{{isHCP}}" is-admin="{{isAdmin}}"></permissions-check>
+        <permissions-check id="pc" ishcp="{{isHCP}}" isadmin="{{isAdmin}}" ></permissions-check>
         <firebase-auth id="auth" app-name="PrenatalPWA"></firebase-auth>
         <!--        hidden if not admin and not a HCP-->
-        <create-patient-form id="patient-form" hidden$="{{!isAdmin && !isHCP}}"></create-patient-form>
+        <create-patient-form id="patient-form" hidden="{{isPatient}}"></create-patient-form>
         <!--        Hidden if not an admin -->
-        <create-hcp-form id="hcp-form" hidden$="{{!isAdmin}}"></create-hcp-form>
-        <!--        Hidden if you are an admin or HCP-->
-        <warning-form id="warning-form" hidden$="{{isAdmin || isHCP}}"></warning-form>
+        <create-hcp-form id="hcp-form" hidden="{{!isAdmin}}"></create-hcp-form>
+        <!--        Hidden if you are not patient-->
+        <warning-form id="warning-form" hidden="{{!isPatient}}"></warning-form>
     </template>
     <script>
         Polymer({
             is: 'create-user'
+            , properties : {
+                isPatient: {
+                    type: Boolean
+                    , computed: 'checkPatient(isAdmin, isHcp)'
+                }
+            }
+            , checkPatient: function (isadmin, ishcp) {
+                console.log("checking patient");
+                return !(isadmin || ishcp);
+            
+            }
+            
             , listeners: {
                 'add-patient': '_addPatient'
                 , 'add-hcp': '_addHcp'

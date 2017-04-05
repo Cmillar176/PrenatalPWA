@@ -20,13 +20,13 @@
             }
             
             paper-button {
-                background-color: #1DE9B6;
+                background-color: #42A5F5;
                 color: white;
                 font-size: 13px;
             }
             
             paper-button:hover {
-                background-color: #64FFDA;
+                background-color: #64B5F6;
             }
             
             confirmDeleteModal {
@@ -54,7 +54,7 @@
             }
             
             #bloodPressure {
-                width: 120px;
+                width: 162px;
             }
             
             #gestationWeeks {
@@ -65,9 +65,6 @@
                 width: 110px;
             }
             
-            #confirmDeleteModal {
-                box-shadow: none;
-            }
         </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>

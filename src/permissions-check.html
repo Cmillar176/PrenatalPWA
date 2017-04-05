@@ -4,26 +4,33 @@
     <template>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <!--    Getting access to users UserId-->
-        <firebase-document id="adminQuery" app-name="PrenatalPWA" path="/admin/[[user.uid]]/active" data="{{isAdmin}}"> </firebase-document>
-        <firebase-document id="hcpQuery" app-name="PrenatalPWA" path="/HCP/[[user.uid]]/active" data="{{isHCP}}"></firebase-document>
+        <firebase-document id="adminQuery" app-name="PrenatalPWA" path="/admin/[[user.uid]]/active" data="{{isadmin}}"> </firebase-document>
+        <firebase-document id="hcpQuery" app-name="PrenatalPWA" path="/HCP/[[user.uid]]/active" data="{{ishcp}}"></firebase-document>
     </template>
     <script>
         Polymer({
             is: 'permissions-check'
             , properties: {
                 user: {
-                    type: Object,
-                    
-                }
-                , isAdmin: {
+                    type: Object
+                , }
+                , isadmin: {
                     type: Boolean
                     , notify: true
                 }
-                , isHCP: {
+                , ishcp: {
                     type: Boolean
                     , notify: true
                 }
-            },
+                , ispatient: {
+                    type: Boolean
+                    , computed: 'checkPatient(isadmin, ishcp)'
+                }
+            }
+            , checkPatient: function (isadmin, ishcp) {
+                console.log("checking patient");
+                return !(isadmin || ishcp);
+            }
         });
     </script>
 </dom-module>

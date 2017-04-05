@@ -7,7 +7,7 @@
         <style>
             paper-card {
                 width: 400px;
-                height: 100px;
+                height: 145px;
                 margin-top: 40px;
                 margin-left: 40px;
                 padding-left: 10px;
@@ -16,9 +16,9 @@
                 z-index: 30px;
             }
             
-             paper-card {
+            paper-card {
                 --paper-card-header: {
-                    background-color: #1DE9B6;
+                    background-color: #42A5F5;
                     margin-top: 5px;
                 }
                 --paper-card-header-text: {
@@ -32,37 +32,45 @@
                 top: 30px;
                 left: 130px;
             }
+            
+            paper-fab {
+                margin-right: 20px;
+                margin-top: 10px;
+                background: #7E57C2;
+                float: right;
+                padding: 13px;
+                height: 46px;
+                width: 46px;
+            }
+            
+            #description {
+                margin-top: 10px;
+                margin-left: 5px;
+            }
         </style>
         <paper-card heading="Add patient note">
             <a href="/add-note">
-                <div>
-                    <paper-button raised id="add-note"> Add Note</paper-button>
-                    <paper-fab icon="add"></paper-fab>
-                </div>
+                <paper-fab icon="add"></paper-fab>
             </a>
+            <div id="description"> Add appointment details and patient information here </div>
         </paper-card>
-
-        <paper-card>
+        <paper-card heading="Add an image">
             <a href="/add-image">
-                <div>
-                    <paper-button raised id="add-image"> Add Image</paper-button>
-                </div>
+                <paper-fab icon="add"></paper-fab>
             </a>
+            <div id="description"> Add scan photos </div>
         </paper-card>
-
-        <paper-card>
-            <a href="/my-documents">
-                <div>
-                    <paper-button raised id="add-document"> Add Document</paper-button>
-                </div>
+        <paper-card heading="Add documents">
+            <a href="/add-document">
+                <paper-fab icon="add"></paper-fab>
             </a>
+            <div id="description"> Add leaflets and general information here  </div>
         </paper-card>
-
     </template>
     <script>
         Polymer({
             is: 'add-files'
-            , openModal: function () { }
+            , openModal: function () {}
         });
     </script>
 </dom-module>
