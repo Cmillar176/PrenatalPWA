@@ -4,8 +4,8 @@
     <template>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <!--    Getting access to users UserId-->
-        <firebase-document id="adminQuery" app-name="PrenatalPWA" path="/admin/[[user.uid]]/active" data="{{isadmin}}"> </firebase-document>
-        <firebase-document id="hcpQuery" app-name="PrenatalPWA" path="/HCP/[[user.uid]]/active" data="{{ishcp}}"></firebase-document>
+        <firebase-document id="adminQuery" app-name="PrenatalPWA" path="/admin/[[user.uid]]/active" data="{{admin}}"> </firebase-document>
+        <firebase-document id="hcpQuery" app-name="PrenatalPWA" path="/HCP/[[user.uid]]/active" data="{{hcp}}"></firebase-document>
     </template>
     <script>
         Polymer({
@@ -22,13 +22,36 @@
                     type: Boolean
                     , notify: true
                 }
+                , isadmin: {
+                    type: Boolean
+                    , notify: true
+                    , computed: 'checkData(admin)'
+                }
+                , ishcp: {
+                    type: Boolean
+                    , notify: true
+                    , computed: 'checkData(hcp)'
+                }
                 , ispatient: {
                     type: Boolean
+                    , notify: true
                     , computed: 'checkPatient(isadmin, ishcp)'
                 }
             }
+            , checkData: function (input) {
+                empty = true;
+                if (typeof input !== "object") {
+                    empty = false;
+                }
+                for (var prop in input) {
+                    if (Object.prototype.hasOwnProperty.call(input, prop)) {
+                        empty = false;
+                    }
+                }
+                if (empty) return false;
+                return Boolean(input)
+            }
             , checkPatient: function (isadmin, ishcp) {
-                console.log("checking patient");
                 return !(isadmin || ishcp);
             }
         });

@@ -7,9 +7,9 @@
 <link rel="import" href="warning-form.html">
 <dom-module id="create-user">
     <template>
-        <permissions-check id="pc" ishcp="{{isHCP}}" isadmin="{{isAdmin}}" ></permissions-check>
+        <permissions-check id="pc" ishcp="{{isHCP}}" isadmin="{{isAdmin}}" ispatient="{{isPatient}}"></permissions-check>
         <firebase-auth id="auth" app-name="PrenatalPWA"></firebase-auth>
-        <!--        hidden if not admin and not a HCP-->
+        <!--        hidden if you are a patient-->
         <create-patient-form id="patient-form" hidden="{{isPatient}}"></create-patient-form>
         <!--        Hidden if not an admin -->
         <create-hcp-form id="hcp-form" hidden="{{!isAdmin}}"></create-hcp-form>
@@ -19,22 +19,13 @@
     <script>
         Polymer({
             is: 'create-user'
-            , properties : {
-                isPatient: {
-                    type: Boolean
-                    , computed: 'checkPatient(isAdmin, isHcp)'
-                }
+            , listeners: {
+                'add-patient': '_addPatient'
+                , 'add-hcp': '_addHcp'
             }
             , checkPatient: function (isadmin, ishcp) {
                 console.log("checking patient");
                 return !(isadmin || ishcp);
-            
-            }
-            
-            , listeners: {
-                'add-patient': '_addPatient'
-                , 'add-hcp': '_addHcp'
-                , 'reset-create-form': '_resetCreateForm'
             }
             , _addPatient: function (event) {
                 this.$.auth.createUserWithEmailAndPassword(event.detail.patient.email, event.detail.patient.password).then(function () {
