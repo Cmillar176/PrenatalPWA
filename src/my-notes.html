@@ -64,7 +64,6 @@
             #gestationDays {
                 width: 110px;
             }
-            
         </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
@@ -93,11 +92,14 @@
                     type: String
                     , value: ""
                 }
+                , noteStatus: {
+                    type: String
+                    , value: ""
+                }
             }
             , openModal: function (e) {
                 this.noteToDelete = e.model.note.$key;
             }
-            
             , closeModal: function () {
                 this.noteToDelete = "";
             }
@@ -106,17 +108,13 @@
                 window.history.pushState({}, null, '/view-note/' + id);
                 window.dispatchEvent(new CustomEvent('location-changed'));
             }
+            
             , confirmDelete: function (e) {
                 if (this.noteToDelete) {
                     this.$.query.ref.child(this.noteToDelete).remove();
                 }
                 this.closeModal();
-                
-//                if(this.noteToDelete){
-//                    this.$.
-//                }
             }
-            
         });
     </script>
 </dom-module>

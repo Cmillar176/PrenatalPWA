@@ -108,7 +108,6 @@
         <!--        Dialog shows if a field has been left emppty-->
         <paper-dialog id="errorDialog" opened="{{modalOpened}}">
             <p>Fields cannot be left empty!</p>
-            <div class="buttons"> </div>
         </paper-dialog>
     </template>
     <script>
@@ -146,7 +145,7 @@
                 this.fire('cancel-note');
             }
             , save: function () {
-                if (this.$.appointmentDate.value === "" || this.$.gestationWeeks.value === "" || this.$.gestationDays.value === "" || this.$.bloodPressure.value === "") {
+                if (this.$.appointmentDate.value === "" || this.$.gestationWeeks.value === "" || this.$.gestationDays.value === "" || this.$.bloodPressure.value === "" || this.$.appointmentDetails.value === "") {
                     console.log("empty fields");
                     this.modalOpened = true
                     return;
