@@ -1,6 +1,8 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
+
 <link rel="import" href="permissions-check.html">
 <link rel="import" href="create-patient-form.html">
 <link rel="import" href="create-hcp-form.html">
@@ -9,6 +11,9 @@
     <template>
         <permissions-check id="pc" ishcp="{{isHCP}}" isadmin="{{isAdmin}}" ispatient="{{isPatient}}"></permissions-check>
         <firebase-auth id="auth" app-name="PrenatalPWA"></firebase-auth>
+        <firebase-auth id="createauth" app-name="PrenatalPWACreator"></firebase-auth>
+        <firebase-docuemnt id="userDoc" data="{{userDetails}}" app-name="PrenatalPWA"></firebase-docuemnt>
+        <firebase-docuemnt id="hcpDoc" data="{{hcpDetails}}" app-name="PrenatalPWA"></firebase-docuemnt>
         <!--        hidden if you are a patient-->
         <create-patient-form id="patient-form" hidden="{{isPatient}}"></create-patient-form>
         <!--        Hidden if not an admin -->
@@ -28,14 +33,28 @@
                 return !(isadmin || ishcp);
             }
             , _addPatient: function (event) {
-                this.$.auth.createUserWithEmailAndPassword(event.detail.patient.email, event.detail.patient.password).then(function () {
+                this.$.createauth.createUserWithEmailAndPassword(event.detail.patient.email, event.detail.patient.password).then(function () {
                     console.log("User created")
+                    var id = this.$.createauth.user.uid;
+                    this.userDetails.email = event.detail.patient.email;
+                    this.userDetails.firstName = event.detail.patient.firstName;
+                    this.userDetails.lastName = event.detail.patient.lastName;
+                    this.$.userDoc.save('/users',id).then(function () {
+                     console.log("Saved");   
+                    }).catch(function (error) {
+                        console.log("error");   
+                    });
+                    
+                    //sign out
+                     this.$.createauth.signOut();
+                    
                 }).catch(function (error) {
                     console.log("Error creating patient");
                 });
+               
             }
             , _addHcp: function (event) {
-                this.auth.createUserWithEmailAndPassword(event.details.hcp.email, email.detail.hcp.password).then(function () {
+                this.createauth.createUserWithEmailAndPassword(event.details.hcp.email, email.detail.hcp.password).then(function () {
                     console.log("HCP created");
                 }).catch(function (error) {
                     console.log("Error creating HCP");
