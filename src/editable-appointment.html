@@ -1,0 +1,120 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
+<dom-module id="editable-appointment">
+    <template>
+        <style>
+            paper-card {
+                width: 400px;
+                margin-left: 40px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+                z-index: 30px;
+            }
+            
+            paper-button {
+                background-color: #9575CD;
+                color: white;
+                font-size: 12px;
+            }
+            
+            paper-input {
+                width: 200px;   
+            }
+            
+            vaadin-date-picker {
+                width: 200px;
+            }
+            
+            #button-controls {
+                padding-top: 20px;
+                padding-left: 20px;
+            }
+            
+            #errorDialog {
+                background-color: #EF5350;
+                color: white;
+            }
+        </style>
+        
+        <paper-card class="appointment">
+            <div id="appointment-details">
+                <paper-input id="patientFirstName" label="Patient's first name" value="{{appointment.patientFirstName}}"></paper-input>
+                <paper-input id="patientLastName" label="Patient's last name" value="{{appointment.patientLastName}}"></paper-input>
+                <vaadin-date-picker id="birthDate" label="Patient's birth date" value="{{note.birthDate}}"> </vaadin-date-picker>
+                <vaadin-date-picker id="appointmentDate" label="Appointment date" value="{{note.appointmentDate}}"> </vaadin-date-picker>
+                <paper-input id="reason" label="Reason for appointment" value="{{appointment.reason}}"></paper-input>
+                <div id="button-controls">
+                    <paper-button raised id="save" on-tap="save">Save</paper-button>
+                    <paper-button raised id="cancel" on-tap="cancel">Cancel</paper-button>
+                </div>
+        </paper-card>
+        <!--        Dialog shows if a field has been left emppty-->
+        <paper-dialog id="errorDialog" opened="{{modalOpened}}">
+            <p>Fields cannot be left empty!</p>
+        </paper-dialog>
+    </template>
+    <script>
+        Polymer({
+            is: 'editable-appointment'
+            , properties: {
+                appointment: {
+                    type: Object
+                    , value: function () {
+                        return {
+                            patientFirstName: "",
+                            patientLastName: "",
+                            birthDate: "",
+                            appointmentDate: "",
+                            reason: ""
+                        }
+                    }
+                }
+            }
+//            , listeners: {
+//                modalOpened: Boolean
+//            }
+//            
+//            // If cancel button is pressed, the appointment card is cleared and the user will be redirected back to their list of appointments
+//            , cancel: function () {
+//                this.$.patientFirstName = ""
+//                this.$.patientLastName = ""
+//                this.$.birthDate = ""
+//                this.$.appointmentDate = ""
+//                this.$.reason = ""
+//                this.fire('cancel-appointment');
+//            }
+//            
+//            // Validation if any fields are left blank
+//            , save: function () {
+//                if (this.$.patientFirstName.value === "" || this.$.patientLastName.value === "" || this.$.birthDate.value === "" || this.$.appointmentDate.value === "" || this.$.reason.value === "") {
+//                    console.log("empty fields");
+//                    // Dialog opens if fields have been left blank
+//                    this.modalOpened = true
+//                    return;
+//                }
+//                
+//                // Save event fired when 'save' is selected
+//                // Handled on the add-appointment pagev
+//                this.fire('save-note', {
+//                    note: this.note
+//                });
+//            }
+//        });
+//        new Polymer.IronMeta({
+//            type: 'validator'
+//            , key: 'this-year-validator'
+//            , value: {
+//                validate: function (value) {
+//                    var currentYear = new Date().getFullYear();
+//                    return new Date(value).getFullYear() === currentYear;
+//                }
+//            }
+        });
+    </script>
+</dom-module>

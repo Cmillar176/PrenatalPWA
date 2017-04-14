@@ -1,0 +1,23 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="editable-appointment.html">
+<dom-module id="add-appointment">
+    <template>
+        <style>
+            h1 {
+                color: #7E57C2;
+                font-size: 23px;
+                font-weight: normal;
+                margin-left: 40px;
+            }
+        </style>
+        <h1>Create a new appointment</h1>
+        <editable-appointment></editable-appointment>
+    </template>
+    <script>
+        Polymer({
+            is: 'add-appointment'
+        });
+    </script>
+</dom-module>

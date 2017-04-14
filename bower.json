@@ -28,7 +28,8 @@
     "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.2",
     "polymerfire": "firebase/polymerfire#^0.10.3",
     "paper-spinner": "PolymerElements/paper-spinner#^1.2.1",
-    "paper-fab": "PolymerElements/paper-fab#^1.2.1"
+    "paper-fab": "PolymerElements/paper-fab#^1.2.1",
+    "s-table": "StartPolymer/s-table#^0.2.2"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

@@ -1,51 +1,62 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
-
+<link rel="import" href="../bower_components/s-table/s-table.html">
+<link rel="import" href="../bower_components/s-table/s-tbody.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <dom-module id="my-appointments">
     <template>
         <style>
-            paper-card {
-                width: 600px;
-                margin-top: 40px;
+            h1 {
+                color: #7E57C2;
+                font-size: 23px;
+                font-weight: normal;
                 margin-left: 40px;
-                padding-left: 10px;
-                padding-right: 10px;
-                padding-bottom: 10px;
-                z-index: 30px;
-                font-size: 12px;
             }
             
-            paper-button {
-                background-color: #9575CD;
-                color: white
+            #headings {
+                display: flex;
+                background-color: white;
             }
             
-            #notes-controls {
-                padding-top: 20px;
-            }
-            
-            #current {
-                font-size: 16px;
+            paper-fab {
+                background: #7E57C2;
+                padding: 13px;
+                height: 46px;
+                width: 46px;
+                float: left;
             }
         </style>
-
-        <paper-card id="current" heading="Current Appointments">
-
-            <div id="card">
-                <div id="current-appointments">
-                </div>
-            </div>
-        </paper-card>
-
-        <paper-card heading="Previous Appointments">
-
-            <div id="card">
-                <div id="previous-appointments">
-                </div>
-            </div>
-        </paper-card>
+        <h1>Current appointments</h1>
+        <div id="addAppointment"> Add a new appointment
+            <a href="/add-appointment">
+                <paper-fab icon="add"></paper-fab>
+            </a>
+        </div>
+        <div id="appointmentTable">
+            <table id="patientDetails" is="s-table">
+                <thead>
+                    <tr>
+                        <th>Patient First Name</th>
+                        <th>Patient Last Name</th>
+                        <th>Date of Birth</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody is="s-tbody">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </template>
-
     <script>
         Polymer({
             is: 'my-appointments'

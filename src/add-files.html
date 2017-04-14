@@ -10,10 +10,12 @@
                 height: 145px;
                 margin-top: 40px;
                 margin-left: 40px;
+                padding-top: 5px;
                 padding-left: 10px;
                 padding-right: 10px;
                 padding-bottom: 10px;
                 z-index: 30px;
+                display: block;
             }
             
             paper-card {
@@ -43,24 +45,25 @@
                 width: 46px;
             }
             
+            
             #description {
                 margin-top: 10px;
                 margin-left: 5px;
             }
         </style>
-        <paper-card heading="Add patient note">
+        <paper-card id="addNote" heading="Add patient note">
             <a href="/add-note">
                 <paper-fab icon="add"></paper-fab>
             </a>
             <div id="description"> Add appointment details and patient information here </div>
         </paper-card>
-        <paper-card heading="Add an image">
+        <paper-card id="addImage" heading="Add an image">
             <a href="/add-image">
                 <paper-fab icon="add"></paper-fab>
             </a>
             <div id="description"> Add scan photos </div>
         </paper-card>
-        <paper-card heading="Add documents">
+        <paper-card id="addDoc" heading="Add documents">
             <a href="/add-document">
                 <paper-fab icon="add"></paper-fab>
             </a>
