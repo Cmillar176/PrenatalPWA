@@ -111,10 +111,7 @@
             },
             confirmDelete: function (e) {
                     if (this.noteToDelete) {
-//                        this.$.query.properties.orderByValue.value = 'deleted'
-                        //this.noteToDelete.noteStatus = 'deleted';
                         var deleteID = this.noteToDelete.$key
-                       // this.$.query.ref.child(deleteID).push(this.noteToDelete);
                         this.$.query.ref.child(deleteID).update({"noteStatus": 'deleted'});
                     }
                     this.closeModal();

@@ -2,7 +2,6 @@
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-document.html">
-
 <link rel="import" href="permissions-check.html">
 <link rel="import" href="create-patient-form.html">
 <link rel="import" href="create-hcp-form.html">
@@ -11,14 +10,16 @@
     <template>
         <permissions-check id="pc" ishcp="{{isHCP}}" isadmin="{{isAdmin}}" ispatient="{{isPatient}}"></permissions-check>
         <firebase-auth id="auth" app-name="PrenatalPWA"></firebase-auth>
+        <!--Creating a second identical auth object to prevent new user from signing in when created-->
+        <!--createauth should be signed in as newly created user-->
         <firebase-auth id="createauth" app-name="PrenatalPWACreator"></firebase-auth>
         <firebase-docuemnt id="userDoc" data="{{userDetails}}" app-name="PrenatalPWA"></firebase-docuemnt>
         <firebase-docuemnt id="hcpDoc" data="{{hcpDetails}}" app-name="PrenatalPWA"></firebase-docuemnt>
-        <!--        hidden if you are a patient-->
+        <!--hidden if you are a patient-->
         <create-patient-form id="patient-form" hidden="{{isPatient}}"></create-patient-form>
-        <!--        Hidden if not an admin -->
+        <!--Hidden if not an admin -->
         <create-hcp-form id="hcp-form" hidden="{{!isAdmin}}"></create-hcp-form>
-        <!--        Hidden if you are not patient-->
+        <!--Hidden if you are not patient-->
         <warning-form id="warning-form" hidden="{{!isPatient}}"></warning-form>
     </template>
     <script>
@@ -33,25 +34,37 @@
                 return !(isadmin || ishcp);
             }
             , _addPatient: function (event) {
-                this.$.createauth.createUserWithEmailAndPassword(event.detail.patient.email, event.detail.patient.password).then(function () {
-                    console.log("User created")
-                    var id = this.$.createauth.user.uid;
-                    this.userDetails.email = event.detail.patient.email;
-                    this.userDetails.firstName = event.detail.patient.firstName;
-                    this.userDetails.lastName = event.detail.patient.lastName;
-                    this.$.userDoc.save('/users',id).then(function () {
-                     console.log("Saved");   
+                var that = this;
+                // Pull details out of event.detail
+                // These will be passed into the new userDetails object
+                // userDetails object is what is saved to the db
+                that.$.createauth.createUserWithEmailAndPassword(event.detail.patient.email, event.detail.patient.password).then(function () {
+                    console.log("User created");
+                    console.log(event);
+                    var id = that.$.createauth.user.uid;
+                    console.log("ID" + id);
+                    // this is the property we have bound to the userDoc
+                    // here we are populating userDetails
+                    that.userDetails = {
+                        "Details": {
+                            "email": event.detail.patient.email
+                            , "firstName": event.detail.patient.firstName
+                            , "lastName": event.detail.patient.lastName
+                        }
+                    };
+                    console.log("that user first name" + that.userDetails.firstName);
+                    console.log("event user first name" + event.detail.patient.firstName);
+                    console.log(that.userDetails.lastName);
+                    that.$.userDoc.save('/users', id).then(function () {
+                        console.log("Saved");
                     }).catch(function (error) {
-                        console.log("error");   
+                        console.log("error");
                     });
-                    
                     //sign out
-                     this.$.createauth.signOut();
-                    
+                    that.$.createauth.signOut();
                 }).catch(function (error) {
                     console.log("Error creating patient");
                 });
-               
             }
             , _addHcp: function (event) {
                 this.createauth.createUserWithEmailAndPassword(event.details.hcp.email, email.detail.hcp.password).then(function () {
