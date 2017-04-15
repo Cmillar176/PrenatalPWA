@@ -135,14 +135,14 @@
                 modalOpened: Boolean
             }
             , cancel: function () {
-                this.$.appointmentDetails = ""
-                this.$.healthDiscussed = false
-                this.$.movementDiscussed = false
-                this.$.movementFelt = false
-                this.$.bloodPressure = ""
-                this.$.gestationWeeks = ""
-                this.$.gestationDays = ""
-                this.$.appointmentDate = ""
+                this.$.appointmentDetails.value = ""
+                this.$.healthDiscussed.value = false
+                this.$.movementDiscussed.value = false
+                this.$.movementFelt.value = false
+                this.$.bloodPressure.value = ""
+                this.$.gestationWeeks.value = ""
+                this.$.gestationDays.value = ""
+                this.$.appointmentDate.value = ""
                 this.fire('cancel-note');
             }
             , save: function () {

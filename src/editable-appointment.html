@@ -46,8 +46,8 @@
             <div id="appointment-details">
                 <paper-input id="patientFirstName" label="Patient's first name" value="{{appointment.patientFirstName}}"></paper-input>
                 <paper-input id="patientLastName" label="Patient's last name" value="{{appointment.patientLastName}}"></paper-input>
-                <vaadin-date-picker id="birthDate" label="Patient's birth date" value="{{note.birthDate}}"> </vaadin-date-picker>
-                <vaadin-date-picker id="appointmentDate" label="Appointment date" value="{{note.appointmentDate}}"> </vaadin-date-picker>
+                <vaadin-date-picker id="birthDate" label="Patient's birth date" value="{{appointment.birthDate}}"> </vaadin-date-picker>
+                <vaadin-date-picker id="appointmentDate" label="Appointment date" value="{{appointment.appointmentDate}}"> </vaadin-date-picker>
                 <paper-input id="reason" label="Reason for appointment" value="{{appointment.reason}}"></paper-input>
                 <div id="button-controls">
                     <paper-button raised id="save" on-tap="save">Save</paper-button>
@@ -82,11 +82,11 @@
 
             // If cancel button is pressed, the appointment card is cleared and the user will be redirected back to their list of appointments
             , cancel: function () {
-                this.$.patientFirstName = ""
-                this.$.patientLastName = ""
-                this.$.birthDate = ""
-                this.$.appointmentDate = ""
-                this.$.reason = ""
+                this.$.patientFirstName.value = ""
+                this.$.patientLastName.value = ""
+                this.$.birthDate.value = ""
+                this.$.appointmentDate.value = ""
+                this.$.reason.value = ""
                 this.fire('cancel-appointment');
             }
 
