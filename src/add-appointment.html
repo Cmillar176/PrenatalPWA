@@ -4,6 +4,8 @@
 <link rel="import" href="editable-appointment.html">
 <dom-module id="add-appointment">
     <template>
+         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
+        <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/appointments" data="{{appointments}}"> </firebase-query>
         <style>
             h1 {
                 color: #7E57C2;
@@ -18,6 +20,19 @@
     <script>
         Polymer({
             is: 'add-appointment'
+             , listeners: {
+                'save-appointment': '_addAppointment'
+                , 'cancel-appointment': 'redirectToAppointments'
+            }
+            
+            , _addAppointment: function (event) {
+                this.$.query.ref.push(event.detail.appointment);
+                this.redirectToAppointments();
+            }
+            , redirectToAppointments: function () {
+                window.history.pushState({}, null, '/my-appointments');
+                window.dispatchEvent(new CustomEvent('location-changed'));
+            }
         });
     </script>
 </dom-module>

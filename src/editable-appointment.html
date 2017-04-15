@@ -76,45 +76,45 @@
                     }
                 }
             }
-//            , listeners: {
-//                modalOpened: Boolean
-//            }
-//            
-//            // If cancel button is pressed, the appointment card is cleared and the user will be redirected back to their list of appointments
-//            , cancel: function () {
-//                this.$.patientFirstName = ""
-//                this.$.patientLastName = ""
-//                this.$.birthDate = ""
-//                this.$.appointmentDate = ""
-//                this.$.reason = ""
-//                this.fire('cancel-appointment');
-//            }
-//            
-//            // Validation if any fields are left blank
-//            , save: function () {
-//                if (this.$.patientFirstName.value === "" || this.$.patientLastName.value === "" || this.$.birthDate.value === "" || this.$.appointmentDate.value === "" || this.$.reason.value === "") {
-//                    console.log("empty fields");
-//                    // Dialog opens if fields have been left blank
-//                    this.modalOpened = true
-//                    return;
-//                }
-//                
-//                // Save event fired when 'save' is selected
-//                // Handled on the add-appointment pagev
-//                this.fire('save-note', {
-//                    note: this.note
-//                });
-//            }
-//        });
-//        new Polymer.IronMeta({
-//            type: 'validator'
-//            , key: 'this-year-validator'
-//            , value: {
-//                validate: function (value) {
-//                    var currentYear = new Date().getFullYear();
-//                    return new Date(value).getFullYear() === currentYear;
-//                }
-//            }
+            , listeners: {
+                modalOpened: Boolean
+            }
+
+            // If cancel button is pressed, the appointment card is cleared and the user will be redirected back to their list of appointments
+            , cancel: function () {
+                this.$.patientFirstName = ""
+                this.$.patientLastName = ""
+                this.$.birthDate = ""
+                this.$.appointmentDate = ""
+                this.$.reason = ""
+                this.fire('cancel-appointment');
+            }
+
+            // Validation if any fields are left blank
+            , save: function () {
+                if (this.$.patientFirstName.value === "" || this.$.patientLastName.value === "" || this.$.birthDate.value === "" || this.$.appointmentDate.value === "" || this.$.reason.value === "") {
+                    console.log("empty fields");
+                    // Dialog opens if fields have been left blank
+                    this.modalOpened = true
+                    return;
+                }
+                
+                // Save event fired when 'save' is selected
+                // Handled on the add-appointment pagev
+                this.fire('save-appointment', {
+                    appointment: this.appointment
+                });
+            }
+        });
+        new Polymer.IronMeta({
+            type: 'validator'
+            , key: 'this-year-validator'
+            , value: {
+                validate: function (value) {
+                    var currentYear = new Date().getFullYear();
+                    return new Date(value).getFullYear() === currentYear;
+                }
+            }
         });
     </script>
 </dom-module>
