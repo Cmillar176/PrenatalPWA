@@ -9,9 +9,15 @@
 <dom-module id="my-notes">
     <template>
         <style>
+            h1 {
+                color: #7E57C2;
+                font-size: 23px;
+                font-weight: normal;
+                margin-left: 40px;
+            }
+            
             paper-card {
                 width: 600px;
-                margin-top: 40px;
                 margin-left: 40px;
                 padding-left: 10px;
                 padding-right: 10px;
@@ -68,6 +74,7 @@
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <firebase-query id="query" order-by-child="noteStatus" equal-to="saved" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
+        <h1>My Notes</h1>
         <paper-dialog id="confirmDeleteModal" opened="{{noteToDelete}}">
             <p>Are you sure you want to delete this note?</p>
             <div class="buttons">
@@ -86,36 +93,38 @@
     </template>
     <script>
         Polymer({
-            is: 'my-notes',
-            properties: {
+            is: 'my-notes'
+            , properties: {
                 noteToDelete: {
-                    type: String,
-                    value: ""
-                },
-                noteStatus: {
-                    type: String,
-                    value: 'saved',
-                    notify: true
-                },
-            },
-            openModal: function (e) {
+                    type: String
+                    , value: ""
+                }
+                , noteStatus: {
+                    type: String
+                    , value: 'saved'
+                    , notify: true
+                }
+            , }
+            , openModal: function (e) {
                 this.noteToDelete = e.model.note;
-            },
-            closeModal: function () {
+            }
+            , closeModal: function () {
                 this.noteToDelete = "";
-            },
-            _directToView: function (e) {
+            }
+            , _directToView: function (e) {
                 var id = e.model.note.$key;
                 window.history.pushState({}, null, '/view-note/' + id);
                 window.dispatchEvent(new CustomEvent('location-changed'));
-            },
-            confirmDelete: function (e) {
-                    if (this.noteToDelete) {
-                        var deleteID = this.noteToDelete.$key
-                        this.$.query.ref.child(deleteID).update({"noteStatus": 'deleted'});
-                    }
-                    this.closeModal();
+            }
+            , confirmDelete: function (e) {
+                if (this.noteToDelete) {
+                    var deleteID = this.noteToDelete.$key
+                    this.$.query.ref.child(deleteID).update({
+                        "noteStatus": 'deleted'
+                    });
                 }
+                this.closeModal();
+            }
         });
     </script>
 </dom-module>

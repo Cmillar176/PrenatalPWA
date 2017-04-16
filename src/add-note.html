@@ -4,8 +4,17 @@
 <link rel="import" href="editable-note.html">
 <dom-module id="add-note">
     <template>
+        <style>
+            h1 {
+                color: #7E57C2;
+                font-size: 23px;
+                font-weight: normal;
+                margin-left: 40px;
+            }
+        </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
+        <h1>Add a note</h1>
         <editable-note></editable-note>
     </template>
     <script>
