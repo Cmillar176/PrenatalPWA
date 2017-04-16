@@ -5,6 +5,8 @@
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
+<link rel="import" href="../bower_components/paper-time-input/paper-time-input.html">
+
 <dom-module id="editable-appointment">
     <template>
         <style>
@@ -17,6 +19,10 @@
                 z-index: 30px;
             }
             
+            #appointment-details {
+             margin-left: 10px;   
+            }
+            
             paper-button {
                 background-color: #9575CD;
                 color: white;
@@ -24,11 +30,15 @@
             }
             
             paper-input {
-                width: 200px;   
+                width: 200px;
             }
             
             vaadin-date-picker {
-                width: 200px;
+                width: 160px;
+            }
+            
+            paper-time-input {
+                margin-top: 15px;   
             }
             
             #button-controls {
@@ -41,18 +51,19 @@
                 color: white;
             }
         </style>
-        
         <paper-card class="appointment">
             <div id="appointment-details">
                 <paper-input id="patientFirstName" label="Patient's first name" value="{{appointment.patientFirstName}}"></paper-input>
                 <paper-input id="patientLastName" label="Patient's last name" value="{{appointment.patientLastName}}"></paper-input>
                 <vaadin-date-picker id="birthDate" label="Patient's birth date" value="{{appointment.birthDate}}"> </vaadin-date-picker>
                 <vaadin-date-picker id="appointmentDate" label="Appointment date" value="{{appointment.appointmentDate}}"> </vaadin-date-picker>
+                <paper-time-input id="time" label="Time" value="{{appointment.time}}"></paper-time-input>
                 <paper-input id="reason" label="Reason for appointment" value="{{appointment.reason}}"></paper-input>
                 <div id="button-controls">
                     <paper-button raised id="save" on-tap="save">Save</paper-button>
                     <paper-button raised id="cancel" on-tap="cancel">Cancel</paper-button>
                 </div>
+            </div>
         </paper-card>
         <!--        Dialog shows if a field has been left emppty-->
         <paper-dialog id="errorDialog" opened="{{modalOpened}}">
@@ -67,11 +78,12 @@
                     type: Object
                     , value: function () {
                         return {
-                            patientFirstName: "",
-                            patientLastName: "",
-                            birthDate: "",
-                            appointmentDate: "",
-                            reason: ""
+                            patientFirstName: ""
+                            , patientLastName: ""
+                            , birthDate: ""
+                            , appointmentDate: ""
+                            , time: ""
+                            , reason: ""
                         }
                     }
                 }
@@ -79,26 +91,26 @@
             , listeners: {
                 modalOpened: Boolean
             }
-
             // If cancel button is pressed, the appointment card is cleared and the user will be redirected back to their list of appointments
+            
             , cancel: function () {
-                this.$.patientFirstName.value = ""
-                this.$.patientLastName.value = ""
-                this.$.birthDate.value = ""
-                this.$.appointmentDate.value = ""
-                this.$.reason.value = ""
-                this.fire('cancel-appointment');
-            }
-
-            // Validation if any fields are left blank
+                    this.$.patientFirstName.value = ""
+                    this.$.patientLastName.value = ""
+                    this.$.birthDate.value = ""
+                    this.$.appointmentDate.value = ""
+                    this.$.time.value = ""
+                    this.$.reason.value = ""
+                    this.fire('cancel-appointment');
+                }
+                // Validation if any fields are left blank
+                
             , save: function () {
-                if (this.$.patientFirstName.value === "" || this.$.patientLastName.value === "" || this.$.birthDate.value === "" || this.$.appointmentDate.value === "" || this.$.reason.value === "") {
+                if (this.$.patientFirstName.value === "" || this.$.patientLastName.value === "" || this.$.birthDate.value === "" || this.$.appointmentDate.value === "" || this.$.time.value === "" || this.$.reason.value === "") {
                     console.log("empty fields");
                     // Dialog opens if fields have been left blank
                     this.modalOpened = true
                     return;
                 }
-                
                 // Save event fired when 'save' is selected
                 // Handled on the add-appointment pagev
                 this.fire('save-appointment', {

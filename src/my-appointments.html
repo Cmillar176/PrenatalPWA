@@ -3,6 +3,7 @@
 <link rel="import" href="../bower_components/s-table/s-table.html">
 <link rel="import" href="../bower_components/s-table/s-tbody.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <dom-module id="my-appointments">
     <template>
         <style>
@@ -18,14 +19,27 @@
                 background-color: white;
             }
             
+            #addAppointment {
+                margin-top: 30px;
+                margin-left: 40px;
+                width: 225px;
+            }
+            
             paper-fab {
                 background: #7E57C2;
                 padding: 13px;
                 height: 46px;
                 width: 46px;
-                float: left;
+                float: right;
+            }
+            
+            #appointmentTable {
+                margin-top: 30px;
             }
         </style>
+        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
+        <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/appointments" data="{{appointments}}"> </firebase-query>
+        <app-indexeddb-mirror session="[[user.uid]]" key="appointments" data="{{appointments}}" persisted-data="{{persistedAppointments}}"> </app-indexeddb-mirror>
         <h1>Current appointments</h1>
         <div id="addAppointment"> Add a new appointment
             <a href="/add-appointment">
@@ -44,14 +58,14 @@
                         <th>Reason</th>
                     </tr>
                 </thead>
-                <tbody is="s-tbody">
+                <tbody is="dom-repeat" items="[[persistedAppointments]]" as="appointment">
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>[[appointment.patientFirstName]]</td>
+                        <td>[[appointment.patientLastName]]</td>
+                        <td>[[appointment.birthDate]]</td>
+                        <td>[[appointment.time]]</td>
+                        <td>[[appointment.appointmentDate]]</td>
+                        <td>[[appointment.reason]]</td>
                     </tr>
                 </tbody>
             </table>

@@ -29,7 +29,8 @@
     "polymerfire": "firebase/polymerfire#^0.10.3",
     "paper-spinner": "PolymerElements/paper-spinner#^1.2.1",
     "paper-fab": "PolymerElements/paper-fab#^1.2.1",
-    "s-table": "StartPolymer/s-table#^0.2.2"
+    "s-table": "StartPolymer/s-table#^0.2.2",
+    "paper-time-input": "ryanburns23/paper-time-input#^1.0.4"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
