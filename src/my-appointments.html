@@ -1,9 +1,11 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/s-table/s-table.html">
 <link rel="import" href="../bower_components/s-table/s-tbody.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
 <dom-module id="my-appointments">
     <template>
         <style>
@@ -33,47 +35,63 @@
                 float: right;
             }
             
+            paper-button {
+                background-color: #42A5F5;
+                color: white;
+                font-size: 13px;
+                float: right;
+            }
+            
             #appointmentTable {
                 margin-top: 30px;
+                margin-left: 40px;
+                width: 700px;
+                text-align: left;
+                background-color: white;
             }
         </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/appointments" data="{{appointments}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="appointments" data="{{appointments}}" persisted-data="{{persistedAppointments}}"> </app-indexeddb-mirror>
-        <h1>Current appointments</h1>
+        <h1>Current appointmentsssss</h1>
         <div id="addAppointment"> Add a new appointment
             <a href="/add-appointment">
                 <paper-fab icon="add"></paper-fab>
             </a>
         </div>
         <div id="appointmentTable">
-            <table id="patientDetails" is="s-table">
+            <table id="appointmentDetails" is="s-table">
                 <thead>
                     <tr>
-                        <th>Patient First Name</th>
-                        <th>Patient Last Name</th>
-                        <th>Date of Birth</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Reason</th>
                     </tr>
                 </thead>
-                <tbody is="dom-repeat" items="[[persistedAppointments]]" as="appointment">
-                    <tr>
-                        <td>[[appointment.patientFirstName]]</td>
-                        <td>[[appointment.patientLastName]]</td>
-                        <td>[[appointment.birthDate]]</td>
-                        <td>[[appointment.time]]</td>
-                        <td>[[appointment.appointmentDate]]</td>
-                        <td>[[appointment.reason]]</td>
-                    </tr>
-                </tbody>
+                <template is="dom-repeat" items="[[persistedAppointments]]" as="appointment">
+                    <tbody>
+                        <tr>
+                            <td>[[appointment.appointmentDate]]</td>
+                            <td>[[appointment.time]]</td>
+                            <td>[[appointment.reason]]</td>
+                            <td>
+                                <paper-button raised on-tap="_directToView">View</paper-button>
+                            </td>
+                        </tr>
+                    </tbody>
             </table>
+            </template>
         </div>
     </template>
     <script>
         Polymer({
-            is: 'my-appointments'
+            is: 'my-appointments',
+            
+            _directToView: function (e) {
+                var id = e.model.appointment.$key;
+                window.history.pushState({}, null, '/view-appointment/' + id);
+                window.dispatchEvent(new CustomEvent('location-changed'));
+            }
         });
     </script>
 </dom-module>

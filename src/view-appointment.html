@@ -1,0 +1,58 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="patient-appointment.html">
+<dom-module id="view-appointment">
+    <template>
+        <style>
+            #spinnerContainer > paper-spinner {
+                left: 50%;
+                padding-top: 30px;
+            }
+        </style>
+        <h1>test</h1>
+        <!--Spinner shows if data has not loaded onto the page yet-->
+        <div id="spinnerContainer">
+            <paper-spinner id="spinner" alt="Loading appointments" active></paper-spinner>
+        </div>
+        <!--Adding patient's appointment component-->
+        <patient-appointment appointment="{{appointmentData}}"></patient-appointment>
+        <app-route route="{{route}}" pattern="/:id" data="{{viewAppointmentData}}"></app-route>
+        <firebase-document id="document" app-name='PrenatalPWA' path="/users/{{user.uid}}/appointments/{{viewAppointmentData.id}}" data="{{appointmentData}}">
+        </firebase-document>
+        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
+    </template>
+    <script>
+        Polymer({
+            is: 'view-appointment',
+            properties: {
+                appointmentData: {
+                    type: Object
+                },
+                viewAppointmentData: {
+                    type: Object
+                }
+            },
+            listeners: {
+                'redirect': '_redirectToAppointments'
+            },
+            observers: [
+                'loadingComplete(appointmentData.*)'
+            ],
+            
+            // Redirects user back to view the list of all their appointments
+            _redirectToAppointments: function (e) {
+//                window.history.pushState({}, null, '/my-appointments');
+//                window.dispatchEvent(new CustomEvent('location-changed'));
+                location.href="/my-appointments";
+            },
+            // Spinner function
+            // Hides when the page has finished loading the data
+            loadingComplete: function (changes) {
+                this.$.spinner.active = false;
+            }
+        });
+    </script>
+</dom-module>

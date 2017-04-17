@@ -1,0 +1,59 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="my-icons.html">
+<dom-module id="patient-appointment">
+    <template>
+        <style>
+            paper-card {
+                width: 600px;
+                margin-left: 40px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+                z-index: 30px;
+            }
+            
+            paper-button {
+                background-color: #9575CD;
+                color: white;
+                font-size: 12px;
+            }
+            
+        </style>
+        <!-- This information will show when the HCP or Admin wants to view more details of an appointment-->
+        <paper-card>
+            <p class="patientFirstName">Patient's first name: [[appointment.patientFirstName]]</p>
+            <p class="patientLastName">Patient's last name: [[appointment.patientLastName]]</p>
+            <p class="patientbirthDate">Patient's birth date: [[appointment.birthdate]]</p>
+            <p class="appointmentDate">Appointment date: [[appointment.appointmentDate]]</p>
+            <p class="time">Appointment time: [[appointment.time]]</p>
+            <p class="reason">Reason for appointment: [[appointment.reason]]</p>
+            <paper-button on-tap="redirect">View all appointments</paper-button>
+        </paper-card>
+    </template>
+    <script>
+        Polymer({
+            is: 'patient-appointment',
+            properties: {
+                appointment: {
+                    type: Object,
+                    value: function () {
+                        return {
+                            patientFirstName: "",
+                            patientLastName: "",
+                            appointmentDate: "",
+                            birthDate: "",
+                            time: "",
+                            reason: ""
+                        }
+                    }
+                }
+            },
+            redirect: function () {
+                this.fire('redirect', {
+                });
+            }
+        });
+    </script>
+</dom-module>
