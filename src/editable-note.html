@@ -144,6 +144,8 @@
                 this.$.appointmentDate.value = ""
                 this.fire('cancel-note');
             }
+            
+            // Saves the note if none of the fields are left empty
             , save: function () {
                 if (this.$.appointmentDate.value === "" || this.$.gestationWeeks.value === "" || this.$.gestationDays.value === "" || this.$.bloodPressure.value === "" || this.$.appointmentDetails.value === "") {
                     console.log("empty fields");

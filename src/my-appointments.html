@@ -6,6 +6,7 @@
 <link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+
 <dom-module id="my-appointments">
     <template>
         <style>
@@ -53,7 +54,8 @@
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/appointments" data="{{appointments}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="appointments" data="{{appointments}}" persisted-data="{{persistedAppointments}}"> </app-indexeddb-mirror>
-        <h1>Current appointmentsssss</h1>
+        
+        <h1>Current appointments</h1>
         <div id="addAppointment"> Add a new appointment
             <a href="/add-appointment">
                 <paper-fab icon="add"></paper-fab>

@@ -9,8 +9,6 @@
     "src/view-note.html",
     "src/my-appointments.html",
     "src/add-appointment.html",
-    "src/edit-appointment.html",
-    "src/view-appointment.html",
     "src/my-details.html",
     "src/create-user.html"
   ],
