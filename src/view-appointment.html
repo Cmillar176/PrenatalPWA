@@ -16,7 +16,6 @@
             
             #spinnerContainer > paper-spinner {
                 left: 50%;
-/*                padding-top: 30px;*/
             }
         </style>
         <h1>View patient appointment</h1>
@@ -51,9 +50,8 @@
             
             // Redirects user back to view the list of all their appointments
             _redirectToAppointments: function (e) {
-//                window.history.pushState({}, null, '/my-appointments');
-//                window.dispatchEvent(new CustomEvent('location-changed'));
-                location.href="/my-appointments";
+                window.history.pushState({}, null, '/my-appointments');
+                window.dispatchEvent(new CustomEvent('location-changed'));
             },
             // Spinner function
             // Hides when the page has finished loading the data
