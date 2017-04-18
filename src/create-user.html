@@ -13,8 +13,8 @@
         <!--Creating a second identical auth object to prevent new user from signing in when created-->
         <!--createauth should be signed in as newly created user-->
         <firebase-auth id="createauth" app-name="PrenatalPWACreator"></firebase-auth>
-        <firebase-docuemnt id="userDoc" data="{{userDetails}}" app-name="PrenatalPWA"></firebase-docuemnt>
-        <firebase-docuemnt id="hcpDoc" data="{{hcpDetails}}" app-name="PrenatalPWA"></firebase-docuemnt>
+        <firebase-document id="userDoc" data="{{userDetails}}" app-name="PrenatalPWA"></firebase-docuemnt>
+        <firebase-document id="hcpDoc" data="{{hcpDetails}}" app-name="PrenatalPWA"></firebase-docuemnt>
         <!--hidden if you are a patient-->
         <create-patient-form id="patient-form" hidden="{{isPatient}}"></create-patient-form>
         <!--Hidden if not an admin -->

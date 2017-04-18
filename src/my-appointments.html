@@ -42,6 +42,10 @@
                 margin-left: 40px;
             }
             
+             paper-button:hover {
+                background-color: #B39DDB;
+            }
+            
             #appointmentTable {
                 margin-top: 30px;
                 margin-left: 40px;
@@ -55,13 +59,6 @@
         <app-indexeddb-mirror session="[[user.uid]]" key="appointments" data="{{appointments}}" persisted-data="{{persistedAppointments}}"> </app-indexeddb-mirror>
         <h1>Current appointments</h1>
         <paper-button on-tap="directToAdd">Add a new appointment</paper-button>
-<!--
-        <div id="addAppointment"> Add a new appointment
-            <a href="/add-appointment">
-                <paper-fab icon="add"></paper-fab>
-            </a>
-        </div>
--->
         <div id="appointmentTable">
             <table id="appointmentDetails" is="s-table">
                 <thead>

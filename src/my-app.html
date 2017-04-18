@@ -70,7 +70,9 @@
             }
             
             .signOut {
-                width: 100px;
+                width: 110px;
+                text-transform: none;
+                font-size: 14px;
             }
         </style>
         <firebase-app name="PrenatalPWA" api-key="AIzaSyB0KgoGx8gl7FcW4Gu5jm1ibU9GsgYeQlA" auth-domain="prenatalpwa.firebaseapp.com"
@@ -97,7 +99,7 @@
                     <app-header condenses reveals effects="waterfall">
                         <app-toolbar>
                             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-                            <div main-title>Prenatal Notes <img src="/images/icon.png" style="width:30px;height:30px;"> </div>
+                            <div main-title>Prenatal Notes</div>
                             <paper-button class="signOut" on-tap="signOut" hidden="[[!signedIn]]">
                                 <iron-icon icon="account-circle"></iron-icon> <span>Sign Out</span> </paper-button>
                         </app-toolbar>
