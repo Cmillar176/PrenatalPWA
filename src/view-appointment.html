@@ -7,11 +7,19 @@
 <dom-module id="view-appointment">
     <template>
         <style>
+             h1 {
+                color: #7E57C2;
+                font-size: 23px;
+                font-weight: normal;
+                margin-left: 40px;
+            }
+            
             #spinnerContainer > paper-spinner {
                 left: 50%;
-                padding-top: 30px;
+/*                padding-top: 30px;*/
             }
         </style>
+        <h1>View patient appointment</h1>
         <!--Spinner shows if data has not loaded onto the page yet-->
         <div id="spinnerContainer">
             <paper-spinner id="spinner" alt="Loading appointments" active></paper-spinner>
