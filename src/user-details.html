@@ -1,0 +1,27 @@
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-document.html">
+<dom-module id="user-details">
+    <template>
+        <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
+        <!--    Getting access to users UserId-->
+        <firebase-document id="userQuery" app-name="PrenatalPWA" path="/users/[[requser]]/Details" data="{{details}}"> </firebase-document>
+    </template>
+    <script>
+        Polymer({
+            is: 'user-details'
+            , properties: {
+                user: {
+                    type: Object,
+                }
+                , requser: {
+                    type: String
+                    , notify: true
+                }
+                , details: {
+                    type: Object
+                    , notify: true
+                }
+            }
+        });
+    </script>
+</dom-module>

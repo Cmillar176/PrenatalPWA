@@ -3,7 +3,9 @@
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
 <link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-shared-styles.html">
+<link rel="import" href="user-details.html">
 <dom-module id="my-details">
     <template>
         <style>
@@ -42,6 +44,8 @@
                 padding-top: 20px;
             }
         </style>
+        <firebase-auth id="idAuth" app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
+        <user-details details="{{details}}" requser="[[user.uid]]"></user-details>
         <paper-card heading="My Details">
             <div id="user-details">
                 <p class="firstName">First name: [[details.firstName]] </p>
@@ -55,6 +59,10 @@
         Polymer({
             is: 'my-details'
             , properties: {
+                user: { 
+                    type: Object 
+                      },
+                       
                 note: {
                     type: Object
                     , value: function () {

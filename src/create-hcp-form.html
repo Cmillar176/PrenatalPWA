@@ -86,13 +86,11 @@
                 this.$.password.value = null;
             }
             , create: function () {
+                var evHCP = JSON.parse(JSON.stringify(this.hcp));
                 this.fire('add-hcp', {
-                    hcp: this.hcp
+                    hcp: evHCP
                 });
-                this.$.firstName.value = null;
-                this.$.lastName.value = null;
-                this.$.email.value = null;
-                this.$.password.value = null;
+                this.reset();
             }
         });
     </script>

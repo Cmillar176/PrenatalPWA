@@ -84,13 +84,11 @@
                 this.$.password.value = null;
             }
             , create: function () {
+                var evPatient = JSON.parse(JSON.stringify(this.patient));
                 this.fire('add-patient', {
-                    patient: this.patient
+                    patient: evPatient
                 });
-                this.$.firstName.value = null;
-                this.$.lastName.value = null;
-                this.$.email.value = null;
-                this.$.password.value = null;
+                this.reset();
             }
         });
     </script>
