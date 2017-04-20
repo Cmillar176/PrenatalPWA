@@ -5,6 +5,7 @@
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
 <link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
 <dom-module id="my-notes">
@@ -20,36 +21,40 @@
             paper-card {
                 width: 400px;
                 margin-left: 40px;
-                margin-bottom:30px;
-                padding-left: 10px;
-                padding-right: 10px;
-                padding-bottom: 10px;
+                margin-bottom: 30px;
                 z-index: 30px;
-            }
-            
-            paper-button {
-                background-color: #9575CD;
+            } 
+        
+            #heading {
+                background-color: #42A5F5;
+                height: 120px;
                 color: white;
-                font-size: 13px;
-                float: left;
-                margin-right: 10px;
+                margin-bottom: 10px;
             }
             
-            paper-fab {
+            #date {
+                font-size: 25px;
+            }
+            
+            #noteIcon {
+                padding-left: 39%;
+                padding-top: 10px;
+                height: 75px;
+                width: 75px;
+            }
+            
+            paper-icon-button {
+                color: grey;
                 float: right;
-                background-color: #F44336;
             }
             
-            paper-button:hover {
-                background-color: #B39DDB;
+            div.card-actions > paper-button {
+                box-shadow: none;
+                color: grey;
             }
             
             confirmDeleteModal {
                 z-index: 10px;
-            }
-            
-            #notes-controls {
-                padding-top: 20px;
             }
             
             #appointmentDate {
@@ -62,10 +67,6 @@
             
             #add-note {
                 width: 500px;
-            }
-            
-            #patient-info {
-                padding-top: 20px;
             }
             
             #bloodPressure {
@@ -84,19 +85,30 @@
         <firebase-query id="query" order-by-child="noteStatus" equal-to="saved" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="notes" data="{{notes}}" persisted-data="{{persistedNotes}}"> </app-indexeddb-mirror>
         <h1>My Notes</h1>
+        <!--Dialog which appears to confirm deletion of note-->
         <paper-dialog id="confirmDeleteModal" opened="{{noteToDelete}}">
             <p>Are you sure you want to delete this note?</p>
-            <div class="buttons">
+            <div id="deleteActions" class="card-actions">
                 <paper-button autofocus on-tap="closeModal">Cancel</paper-button>
                 <paper-button on-tap="confirmDelete">Delete</paper-button>
             </div>
         </paper-dialog>
+        <!--Dialog which will contain a brief description of the user's note-->
         <template is="dom-repeat" items="[[persistedNotes]]" as="note">
             <paper-card status="{{noteStatus}}">
-                <p class="date">Appointment date: [[note.appointmentDate]]</p>
-                <p class="content">Appointment details: [[note.content]]</p>
-                <paper-button raised on-tap="_directToView">View note</paper-button>
-                <paper-fab mini icon="delete" on-tap="openModal"></paper-fab>
+                <div class="card-content">
+                    <div id="heading">
+                        <div>
+                            <iron-icon id="noteIcon" icon="icons:description"></iron-icon>
+                        </div>
+                        <div id="date">[[note.appointmentDate]]</div>
+                    </div>
+                    <div id="details">[[note.content]] </div>
+                </div>
+                <div class="card-actions">
+                    <paper-button raised on-tap="_directToView">View</paper-button>
+                    <paper-icon-button on-tap="openModal" icon="icons:delete"></paper-icon-button>
+                </div>
             </paper-card>
         </template>
     </template>
