@@ -2,7 +2,6 @@
     "entrypoint": "index.html",
     "shell": "src/my-app.html",
     "fragments": [
-    "src/add-files.html",
     "src/my-notes.html",
     "src/add-note.html",
     "src/edit-note.html",

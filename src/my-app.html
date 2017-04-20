@@ -87,7 +87,6 @@
                 <app-drawer>
                     <app-toolbar>Menu </app-toolbar>
                     <iron-selector attr-for-selected="name" class="drawer-list" role="navigation"> 
-                        <a name="add-files" href="/add-files">Add Files</a> 
                         <a name="my-appointments" href="/my-appointments">My Appointments</a>                        
                         <a name="my-notes" href="/my-notes">My Notes</a> 
                         <a name="create-user" href="/create-user" hidden="true"> Create User</a>                     
@@ -105,7 +104,6 @@
                         </app-toolbar>
                     </app-header>
                     <iron-pages selected="{{page}}" route="{{subroute}}" attr-for-selected="name" fallback-selection="view404" role="main">
-                        <add-files name="add-files"> </add-files>
                         <add-note name="add-note"> </add-note>
                         <edit-note name="edit-note" route='[[subroute]]'> </edit-note>
                         <my-notes name="my-notes"> </my-notes>

@@ -11,36 +11,52 @@
 <dom-module id="my-notes">
     <template>
         <style>
-            h1 {
+        h1 {
                 color: #7E57C2;
                 font-size: 23px;
                 font-weight: normal;
-                margin-left: 40px;
+                margin-left: 15px;
             }
             
             paper-card {
-                width: 400px;
-                margin-left: 40px;
+                width: calc(100% - 10px);
+                max-width: 400px;
+                margin-left: 15px;
                 margin-bottom: 30px;
                 z-index: 30px;
-            } 
-        
+                display: block;
+            }
+            
+            paper-card {
+                --paper-card-content: {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+            
             #heading {
                 background-color: #42A5F5;
-                height: 120px;
+                height: 140px;
                 color: white;
                 margin-bottom: 10px;
             }
             
+            #details {
+                padding: 10px;
+            }
+            
             #date {
                 font-size: 25px;
+                padding-left: 10px;
             }
             
             #noteIcon {
                 padding-left: 39%;
-                padding-top: 10px;
+                padding-top: 20px;
+                padding-bottom: 5px;
                 height: 75px;
                 width: 75px;
+                opacity: 0.4;
             }
             
             paper-icon-button {
@@ -66,7 +82,7 @@
             }
             
             #add-note {
-                width: 500px;
+                width: 480px;
             }
             
             #bloodPressure {
@@ -80,6 +96,17 @@
             #gestationDays {
                 width: 110px;
             }
+            
+            #addNote {
+                width: 500px;
+            }
+            
+            #addIcon {
+                float: right;
+                margin-bottom: 11px;
+                background: #42A5F5;
+            }
+        }
         </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <firebase-query id="query" order-by-child="noteStatus" equal-to="saved" app-name="PrenatalPWA" path="/users/[[user.uid]]/notes" data="{{notes}}"> </firebase-query>
@@ -111,6 +138,12 @@
                 </div>
             </paper-card>
         </template>
+        <!--Will direct the user to the add a note form-->
+        <div id="addNote">
+            <a href="/add-note">
+                <paper-fab id="addIcon" icon="add"></paper-fab>
+            </a>
+        </div>
     </template>
     <script>
         Polymer({
