@@ -9,7 +9,7 @@
     "src/my-appointments.html",
     "src/add-appointment.html",
     "src/view-appointment.html",
-    "src/my-details.html",
+    "src/my-dashboard.html",
     "src/create-user.html"
   ],
     "sourceGlobs": [

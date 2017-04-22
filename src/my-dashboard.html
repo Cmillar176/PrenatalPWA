@@ -1,0 +1,119 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../bower_components/paper-dialog-behavior/paper-dialog-shared-styles.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="user-details.html">
+<dom-module id="my-dashboard">
+    <template>
+        <style>
+            h1 {
+                color: #7E57C2;
+                font-size: 23px;
+                font-weight: normal;
+                margin-left: 5px;
+            }
+            
+            paper-card {
+                width: calc(100% - 10px);
+                max-width: 500px;
+                margin-top: 40px;
+                margin-left: 5px;
+                padding-bottom: 10px;
+                z-index: 30px;
+                display: block;
+                padding: none;
+            }
+            
+            paper-card {
+                --paper-card-header: {
+                    background-color: #42A5F5;
+                    margin-top: 5px;
+                    color: white;
+                }
+                --paper-card-header-text: {
+                    color: white;
+                }
+            }
+            
+            paper-card {
+                --paper-card-content: {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+            
+            #heading {
+                background-color: #42A5F5;
+                height: 140px;
+                color: white;
+                margin-bottom: 10px;
+            }
+            
+            #title {
+                font-size: 25px;
+                padding-left: 10px;
+            }
+            
+            #noteIcon {
+                padding-left: 39%;
+                padding-top: 20px;
+                padding-bottom: 5px;
+                height: 75px;
+                width: 75px;
+                opacity: 0.4;
+            }
+            
+            #user-details {
+                margin-left: 5px;
+            }
+            
+            paper-button {
+                background-color: #42A5F5;
+                color: white;
+                height: 40px;
+            }
+        </style>
+        <h1>Your Dashboard</h1>
+        <firebase-auth id="idAuth" app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
+        <user-details details="{{details}}" requser="[[user.uid]]"></user-details>
+        <paper-card class="my-details">
+            <div class="card-content">
+                <div id="heading">
+                    <div>
+                        <iron-icon id="noteIcon" icon="icons:face"></iron-icon>
+                    </div>
+                    <div id="title">My Details</div>
+                </div>
+                <div id="user-details">
+                    <p class="firstName">First name: [[details.firstName]] </p>
+                    <p class="lastName">Last name: [[details.lastName]]</p>
+                    <p class="email">Email address: [[details.email]]</p>
+                </div>
+            </div>
+        </paper-card>
+    </template>
+    <script>
+        Polymer({
+            is: 'my-dashboard'
+            , properties: {
+                user: {
+                    type: Object
+                }
+                , note: {
+                    type: Object
+                    , value: function () {
+                        return {
+                            firstName: ""
+                            , lastName: ""
+                            , email: ""
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</dom-module>

@@ -10,7 +10,7 @@
         <style>
             paper-card {
                 width: 400px;
-                margin-left: 40px;
+                margin-left: 5px;
                 padding-left: 10px;
                 padding-right: 10px;
                 padding-bottom: 10px;
@@ -96,13 +96,21 @@
             // If cancel button is pressed, the appointment card is cleared and the user will be redirected back to their list of appointments
             
             , cancel: function () {
+                this.$.patientFirstName.value = ""
+                this.$.patientLastName.value = ""
+                this.$.birthDate.value = ""
+                this.$.appointmentDate.value = ""
+                this.$.time.value = ""
+                this.$.reason.value = ""
+                this.fire('cancel-appointment');
+            }
+            , reset: function () {
                     this.$.patientFirstName.value = ""
                     this.$.patientLastName.value = ""
                     this.$.birthDate.value = ""
                     this.$.appointmentDate.value = ""
                     this.$.time.value = ""
                     this.$.reason.value = ""
-                    this.fire('cancel-appointment');
                 }
                 // Validation if any fields are left blank
                 
@@ -118,6 +126,7 @@
                 this.fire('save-appointment', {
                     appointment: this.appointment
                 });
+                this.reset();
             }
         });
         new Polymer.IronMeta({

@@ -13,7 +13,7 @@
                 color: #7E57C2;
                 font-size: 23px;
                 font-weight: normal;
-                margin-left: 40px;
+                margin-left: 5px;
             }
             
             #headings {
@@ -27,45 +27,54 @@
                 width: 225px;
             }
             
-            paper-fab {
-                background: #9575CD;
-                padding: 11px;
-                height: 40px;
-                width: 40px;
-                float: right;
-            }
-            
             paper-button {
-                background-color: #9575CD;
-                color: white;
+                color: grey;
                 font-size: 13px;
-                margin-left: 40px;
-            }
-            
-             paper-button:hover {
-                background-color: #B39DDB;
+                background-color: transparent;
+                box-shadow: none;
             }
             
             #appointmentTable {
+                width: calc(100% - 10px);
+                max-width: 700px;
                 margin-top: 30px;
-                margin-left: 40px;
-                width: 700px;
+                margin-left: 5px;
                 text-align: left;
                 background-color: white;
+            }
+            
+            #title {
+                font-size: 18px;
+            }
+            
+            #addAppointment {
+                width: 500px;
+                padding-top: 10px;
+            }
+            
+            #addIcon {
+                float: left;
+                background: #42A5F5;
+                margin-left: 18px;
+                padding: 11px;
+                height: 40px;
+                width: 40px;
             }
         </style>
         <firebase-auth app-name="PrenatalPWA" user="{{user}}"></firebase-auth>
         <firebase-query id="query" app-name="PrenatalPWA" path="/users/[[user.uid]]/appointments" data="{{appointments}}"> </firebase-query>
         <app-indexeddb-mirror session="[[user.uid]]" key="appointments" data="{{appointments}}" persisted-data="{{persistedAppointments}}"> </app-indexeddb-mirror>
         <h1>Current appointments</h1>
-        <paper-button on-tap="directToAdd">Add a new appointment</paper-button>
         <div id="appointmentTable">
             <table id="appointmentDetails" is="s-table">
                 <thead>
                     <tr>
-                        <th>Date</th>
+                        <th id="title">Date</th>
                         <th>Time</th>
                         <th>Reason</th>
+                        <th>
+                            <paper-fab id="addIcon" on-tap="directToAdd" icon="add"></paper-fab>
+                        </th>
                     </tr>
                 </thead>
                 <template is="dom-repeat" items="[[persistedAppointments]]" as="appointment">
@@ -75,8 +84,7 @@
                             <td>[[appointment.time]]</td>
                             <td>[[appointment.reason]]</td>
                             <td>
-                                <paper-fab icon="search" on-tap="_directToView"></paper-fab>
-                                <!--<paper-button raised on-tap="_directToView">View</paper-button>-->
+                                <paper-button raised on-tap="_directToView">View</paper-button>
                             </td>
                         </tr>
                     </tbody>
@@ -86,14 +94,13 @@
     </template>
     <script>
         Polymer({
-            is: 'my-appointments',
-            _directToView: function (e) {
+            is: 'my-appointments'
+            , _directToView: function (e) {
                 var id = e.model.appointment.$key;
                 window.history.pushState({}, null, '/view-appointment/' + id);
                 window.dispatchEvent(new CustomEvent('location-changed'));
-            },
-            
-            directToAdd: function() {
+            }
+            , directToAdd: function () {
                 window.history.pushState({}, null, '/add-appointment');
                 window.dispatchEvent(new CustomEvent('location-changed'));
             }

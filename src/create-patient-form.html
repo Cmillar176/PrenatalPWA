@@ -9,16 +9,15 @@
     <template>
         <style>
             paper-card {
-                width: 400px;
-                margin-top: 40px;
-                margin-left: 40px;
-                padding-left: 10px;
-                padding-right: 10px;
+                max-width: 500px;
+                width: calc(100% - 10px);
+                margin-left: 5px;
                 padding-bottom: 10px;
                 z-index: 30px;
+                display: block;
             }
             
-            paper-card {
+             paper-card {
                 --paper-card-header: {
                     background-color: #42A5F5;
                     margin-top: 5px;
@@ -26,6 +25,39 @@
                 --paper-card-header-text: {
                     color: white;
                 }
+            }
+            
+            paper-card {
+                --paper-card-content: {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+            
+            #heading {
+                background-color: #42A5F5;
+                height: 140px;
+                color: white;
+                margin-bottom: 10px;
+            }
+            
+            #title {
+                font-size: 25px;
+                padding-left: 10px;
+            }
+            
+            #details {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            
+            #noteIcon {
+                padding-left: 39%;
+                padding-top: 20px;
+                padding-bottom: 5px;
+                height: 75px;
+                width: 75px;
+                opacity: 0.4;
             }
             
             paper-input {
@@ -48,14 +80,22 @@
                 padding-bottom: 20px;
             }
         </style>
-        <paper-card class="patient-details" heading="Create new patient">
-            <div id="details">
-                <paper-input id="firstName" label="First name" value={{patient.firstName}}></paper-input>
-                <paper-input id="lastName" label="Last name" value={{patient.lastName}}></paper-input>
-                <paper-input id="password" label="Password" type="password" value={{patient.password}}></paper-input>
-                <paper-input id="email" label="Email address" value={{patient.email}}></paper-input>
+        <paper-card class="patient-details">
+            <div class="card-content">
+                <div id="heading">
+                    <div>
+                        <iron-icon id="noteIcon" icon="icons:pregnant-woman"></iron-icon>
+                    </div>
+                    <div id="title">Create Patient</div>
+                </div>
+                <div id="details">
+                    <paper-input id="firstName" label="First name" value={{patient.firstName}}></paper-input>
+                    <paper-input id="lastName" label="Last name" value={{patient.lastName}}></paper-input>
+                    <paper-input id="password" label="Password" type="password" value={{patient.password}}></paper-input>
+                    <paper-input id="email" label="Email address" value={{patient.email}}></paper-input>
+                </div>
             </div>
-            <div id="details-controls">
+            <div class="card-actions">
                 <paper-button raised id="create" on-tap="create">Create</paper-button>
                 <paper-button raised id="reset" on-tap="reset">Reset</paper-button>
             </div>

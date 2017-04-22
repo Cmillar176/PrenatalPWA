@@ -9,6 +9,15 @@
 <link rel="import" href="warning-form.html">
 <dom-module id="create-user">
     <template>
+        <style>
+            h1 {
+                color: #7E57C2;
+                font-size: 23px;
+                font-weight: normal;
+                margin-left: 5px;
+            }
+        </style>
+        <h1>Create a new user</h1>
         <permissions-check id="pc" ishcp="{{isHCP}}" isadmin="{{isAdmin}}" ispatient="{{isPatient}}"></permissions-check>
         <firebase-auth id="auth" app-name="PrenatalPWA"></firebase-auth>
         <firebase-auth id="createauth" app-name="PrenatalPWACreator"></firebase-auth>
@@ -20,6 +29,10 @@
         <create-hcp-form id="hcp-form" hidden="{{!isAdmin}}"></create-hcp-form>
         <!--        Hidden if you are not patient-->
         <warning-form id="warning-form" hidden="{{!isPatient}}"></warning-form>
+        <paper-dialog id="userCreatedDialog">
+            <p>The user was successfully created!</p>
+            </div>
+        </paper-dialog>
     </template>
     <script>
         Polymer({
@@ -38,7 +51,6 @@
                     var id = firebaseUser.uid;
                     // this is the property we have bound to the userDoc
                     // here we are populating userDetails
-                    
                     that.userDetails = {
                         "Details": {
                             "email": event.detail.patient.email
@@ -62,7 +74,7 @@
                 this.$.createauth.createUserWithEmailAndPassword(event.detail.hcp.email, event.detail.hcp.password).then(function (firebaseUser) {
                     var id = firebaseUser.uid;
                     console.log('HCP User ID :' + id);
-                     that.userDetails = {
+                    that.userDetails = {
                         "Details": {
                             "email": event.detail.hcp.email
                             , "firstName": event.detail.hcp.firstName
@@ -75,9 +87,10 @@
                     }).catch(function (error) {
                         console.log("error saving HCP Details " + error);
                     });
-
                     //Set the HCP Details data then save it
-                    that.hcpDetails = {"active":true};
+                    that.hcpDetails = {
+                        "active": true
+                    };
                     console.log(that.hcpDetails);
                     that.$.hcpDoc.save('/HCP', id).then(function () {
                         console.log("HCP status Saved");

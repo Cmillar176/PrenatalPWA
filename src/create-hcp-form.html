@@ -6,17 +6,18 @@
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <dom-module id="create-hcp-form">
     <template>
         <style>
             paper-card {
-                width: 400px;
-                margin-top: 40px;
-                margin-left: 40px;
-                padding-left: 10px;
-                padding-right: 10px;
+                max-width: 500px;
+                width: calc(100% - 10px);
+                margin-left: 5px;
+                margin-top: 20px;
                 padding-bottom: 10px;
                 z-index: 30px;
+                display: block;
             }
             
             paper-card {
@@ -27,6 +28,39 @@
                 --paper-card-header-text: {
                     color: white;
                 }
+            }
+            
+            paper-card {
+                --paper-card-content: {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+            
+            #heading {
+                background-color: #42A5F5;
+                height: 140px;
+                color: white;
+                margin-bottom: 10px;
+            }
+            
+            #title {
+                font-size: 25px;
+                padding-left: 10px;
+            }
+            
+            #details {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            
+            #noteIcon {
+                padding-left: 39%;
+                padding-top: 20px;
+                padding-bottom: 5px;
+                height: 75px;
+                width: 75px;
+                opacity: 0.4;
             }
             
             paper-input {
@@ -49,14 +83,22 @@
                 padding-bottom: 20px;
             }
         </style>
-        <paper-card class="hcp-details" heading="Create new health care member">
-            <div id="details">
-                <paper-input id="firstName" label="First name" value={{hcp.firstName}}></paper-input>
-                <paper-input id="lastName" label="Last name" value={{hcp.lastName}}></paper-input>
-                <paper-input id="password" label="Password" type="password" value={{hcp.password}}></paper-input>
-                <paper-input id="email" label="Email address" value={{hcp.email}}></paper-input>
+        <paper-card class="hcp-details">
+            <div class="card-content">
+                <div id="heading">
+                    <div>
+                        <iron-icon id="noteIcon" icon="icons:work"></iron-icon>
+                    </div>
+                    <div id="title">Create Health Professional</div>
+                </div>
+                <div id="details">
+                    <paper-input id="firstName" label="First name" value={{hcp.firstName}}></paper-input>
+                    <paper-input id="lastName" label="Last name" value={{hcp.lastName}}></paper-input>
+                    <paper-input id="password" label="Password" type="password" value={{hcp.password}}></paper-input>
+                    <paper-input id="email" label="Email address" value={{hcp.email}}></paper-input>
+                </div>
             </div>
-            <div id="details-controls">
+            <div class="card-actions">
                 <paper-button raised id="create" on-tap="create">Create</paper-button>
                 <paper-button raised id="reset" on-tap="reset">Reset</paper-button>
             </div>

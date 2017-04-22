@@ -6,8 +6,9 @@
     <template>
         <style>
             paper-card {
-                width: 600px;
-                margin-left: 40px;
+                max-width: 400px;
+                width: calc(100% - 10px);
+                margin-left: 5px;
                 padding-left: 10px;
                 padding-right: 10px;
                 padding-bottom: 10px;
@@ -62,7 +63,6 @@
             <p class="bloodPressure">Blood pressure: [[note.bloodPressure]]</p>
             <p class="content">Appointment details: [[note.content]]</p>
             <paper-button raised on-tap="edit">Edit</paper-button>
-            <paper-button note="[[note]]" on-tap="test">Delete</paper-button>
         </paper-card>
     </template>
     <script>

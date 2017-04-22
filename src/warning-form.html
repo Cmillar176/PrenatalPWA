@@ -5,13 +5,12 @@
     <template>
         <style>
             paper-card {
-                width: 400px;
-                margin-top: 40px;
-                margin-left: 40px;
-                padding-left: 10px;
-                padding-right: 10px;
+                width: calc(100% - 10px);
+                max-width: 400px;
+                margin-left: 5px;
                 padding-bottom: 10px;
                 z-index: 30px;
+                display: block;
             }
             
             paper-card {
@@ -22,6 +21,10 @@
                 --paper-card-header-text: {
                     color: white;
                 }
+            }
+            
+            #details {
+                margin-left: 5px;
             }
             
             paper-button {
@@ -37,13 +40,17 @@
                 <p>You don't have access to this page.</p>
             </div>
             <div id="warning-form-controls">
-                <paper-button raised id="redirect">Back to home</paper-button>
+                <paper-button on-tap="redirect">Back to home</paper-button>
             </div>
         </paper-card>
     </template>
     <script>
         Polymer({
             is: 'warning-form'
+            , redirect: function () {
+                window.history.pushState({}, null, '/my-notes');
+                window.dispatchEvent(new CustomEvent('location-changed'));
+            }
         });
     </script>
 </dom-module>

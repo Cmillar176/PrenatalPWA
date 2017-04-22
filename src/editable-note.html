@@ -144,8 +144,18 @@
                 this.$.appointmentDate.value = ""
                 this.fire('cancel-note');
             }
-            
-            // Saves the note if none of the fields are left empty
+            , reset: function () {
+                    this.$.appointmentDetails.value = ""
+                    this.$.healthDiscussed.value = false
+                    this.$.movementDiscussed.value = false
+                    this.$.movementFelt.value = false
+                    this.$.bloodPressure.value = ""
+                    this.$.gestationWeeks.value = ""
+                    this.$.gestationDays.value = ""
+                    this.$.appointmentDate.value = ""
+                }
+                // Saves the note if none of the fields are left empty
+                
             , save: function () {
                 if (this.$.appointmentDate.value === "" || this.$.gestationWeeks.value === "" || this.$.gestationDays.value === "" || this.$.bloodPressure.value === "" || this.$.appointmentDetails.value === "") {
                     console.log("empty fields");
@@ -155,6 +165,7 @@
                 this.fire('save-note', {
                     note: this.note
                 });
+                this.reset();
             }
         });
         new Polymer.IronMeta({
