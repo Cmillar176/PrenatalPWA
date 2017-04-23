@@ -32,12 +32,21 @@
                 --paper-input-container-input-color: white;
             }
             
+            #logo {
+                padding: 15px;
+            }
+            
+            #logoImage {
+                width: calc(100%);
+            }
+            
             #signin-form > paper-button {
                 margin-top: 25px;
             }
             
             #signin-form {
                 width: 222px;
+                margin: auto;
             }
             
             paper-button > * {
@@ -58,24 +67,23 @@
                 margin-top: 25px;
             }
         </style>
-        <div id="signin-form">
-            <div id="error" hidden$={{isValid}}>Please insert correct email and password</div>
-            <paper-input id="email" label="Email"></paper-input>
-            <paper-input id="password" label="Password" type="password"></paper-input>
-            <paper-button on-tap="signIn" disabled="[[disabled]]">
-                <iron-icon icon="account-circle"></iron-icon> <span>Sign in</span> </paper-button>
+        <!--Adding logo-->
+        <div id="wrapper">
+            <div id="logo"> <img id="logoImage" src="../images/logo.png" alt="Prenatal Logo" height="84" width="350"> </div>
+            <div id="signin-form">
+                <div id="error" hidden$={{isValid}}>Please insert correct email and password</div>
+                <paper-input id="email" label="Email"></paper-input>
+                <paper-input id="password" label="Password" type="password"></paper-input>
+                <paper-button on-tap="signIn" disabled="[[disabled]]">
+                    <iron-icon icon="account-circle"></iron-icon> <span>Sign in</span> </paper-button>
+            </div>
         </div>
-        <firebase-auth id="auth" on-error="handleError" app-name="PrenatalPWA" provider="google" online="{{online}}" signed-in="{{signedIn}}"
-            user="{{user}}"> </firebase-auth>
+        <firebase-auth id="auth" on-error="handleError" app-name="PrenatalPWA" provider="google" online="{{online}}" signed-in="{{signedIn}}" user="{{user}}"> </firebase-auth>
     </template>
     <script>
         Polymer({
             is: 'splash-page'
             , properties: {
-                //computed boolean
-                //for offline or signing in
-                //make disabled property a computed boolean and pass online in here
-                //computed function that returns a variable
                 disabled: {
                     type: Boolean
                     , reflectToAttribute: true

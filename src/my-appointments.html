@@ -30,8 +30,9 @@
             paper-button {
                 color: grey;
                 font-size: 13px;
-                background-color: transparent;
+                background-color: #42A5F5;
                 box-shadow: none;
+                color: white;
             }
             
             #appointmentTable {
@@ -41,6 +42,15 @@
                 margin-left: 5px;
                 text-align: left;
                 background-color: white;
+            }
+            
+            #tableHeadings {
+                font-size: 18px;
+                font-weight: bold;
+            }
+            
+            tr:hover {
+                background-color: none;
             }
             
             #title {
@@ -69,13 +79,14 @@
             <table id="appointmentDetails" is="s-table">
                 <thead>
                     <tr>
-                        <th id="title">Date</th>
+                        <th>Date</th>
                         <th>Time</th>
                         <th>Reason</th>
                         <th>
                             <paper-fab id="addIcon" on-tap="directToAdd" icon="add"></paper-fab>
                         </th>
                     </tr>
+                    </a>
                 </thead>
                 <template is="dom-repeat" items="[[persistedAppointments]]" as="appointment">
                     <tbody>

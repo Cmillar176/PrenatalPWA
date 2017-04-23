@@ -29,14 +29,16 @@
         <create-hcp-form id="hcp-form" hidden="{{!isAdmin}}"></create-hcp-form>
         <!--        Hidden if you are not patient-->
         <warning-form id="warning-form" hidden="{{!isPatient}}"></warning-form>
-        <paper-dialog id="userCreatedDialog">
+        <paper-dialog id="userCreatedDialog" opened="{{dialogOpened}}">
             <p>The user was successfully created!</p>
-            </div>
         </paper-dialog>
     </template>
     <script>
         Polymer({
             is: 'create-user'
+            , properties: {
+                dialogOpened: Boolean
+            }
             , listeners: {
                 'add-patient': '_addPatient'
                 , 'add-hcp': '_addHcp'
@@ -60,6 +62,8 @@
                     };
                     that.$.userDoc.save('/users', id).then(function () {
                         console.log("Saved");
+                        //Openening dialog to show user was created
+                        this.dialogOpened = true;
                     }).catch(function (error) {
                         console.log("error saving " + error);
                     });
